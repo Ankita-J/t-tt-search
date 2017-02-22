@@ -1,0 +1,388 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
+<link rel="import" href="../bower_components/iron-behaviors/iron-button-state.html">
+<link rel="import" href="../bower_components/iron-behaviors/iron-control-state.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../t-input-date-picker/t-date-picker/t-date-picker.html">
+<link rel="import" href="../t-input-date-picker/moment-with-locales-import.html">
+
+<!--
+An element providing a solution to no problem in particular.
+
+Example:
+
+    <paper-input-date-picker></paper-input-date-picker>
+
+@group Seed Elements
+@element paper-input-date-picker
+@demo demo/index.html
+@hero hero.svg
+-->
+<dom-module id="t-input-date-picker">
+
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      
+      paper-input {
+        --paper-input-container-focus-color: #4cb050;
+        --paper-input-container-underline-focus-color: green;
+        --paper-input-container-label: lightgray;
+        --paper-input-container-color: lightgray;
+        --paper-input-container-input-color: white;
+        --paper-input-container-underline: green;
+        font-size: small;
+      }
+      
+      :host > paper-button {
+        padding: 0px;
+        margin: 0px;
+        width: inherit;
+        height: inherit;
+        text-transform: none;
+        text-align: left;
+      }
+      
+      :host paper-dialog paper-date-picker {
+        margin: 0px;
+        padding: 0px;
+      }
+      
+      :host > paper-button::shadow > .content.paper-button {
+        padding: 0px;
+      }
+      
+      paper-button.btn-clear {
+        color: var(--paper-red-500);
+        --paper-button-flat-focus-color: var(--paper-red-50);
+      }
+      
+      paper-button.btn-clear:hover {
+        background: var(--paper-red-50);
+      }
+      /*#dialog{
+        width:512px;
+        height:268px;
+        margin-top: -1px;
+        margin-left: -5px;
+      }*/
+      
+      @media (min-width: 300px) {
+        paper-dialog {
+          position: fixed;
+          width: 100%;
+          /*height:268px;*/
+          top: 140px;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          padding: 0;
+          margin: 0;
+        }
+      }
+      
+      @media (min-width: 768px) {
+        paper-dialog {
+          position: absolute;
+          width: 512px;
+          height: 268px;
+          top: 60px;
+          left: 15px;
+          right: 0;
+          bottom: 0;
+          padding: 0;
+          margin: 0;
+        }
+      }
+      
+      @media (min-width: 1024px) {
+        paper-dialog {
+          position: absolute;
+          width: 512px;
+          height: 268px;
+          top: 60px;
+          left: 15px;
+          right: 0;
+          bottom: 0;
+          padding: 0;
+          margin: 0;
+        }
+      }
+    </style>
+
+    <paper-button on-tap="_showDialog" focus-target="[[_dropdownContent]]" tabindex="-1">
+      <paper-input style="width:100%" id="input" disabled="[[disabled]]" value="[[_computeInputText(value)]]" invalid="{{invalid}}"
+        allowed-pattern="[[allowedPattern]]" validator="[[validator]]" type="[[type]]" pattern="[[pattern]]" autocomplete="[[autocomplete]]"
+        autofocus="[[autofocus]]" inputmode="[[inputmode]]" minlength="[[minlength]]" maxlength="[[maxlength]]" min="[[min]]"
+        max="[[max]]" step="[[step]]" name="[[name]]" placeholder="[[placeholder]]" always-float-label="[[alwaysFloatLabel]]"
+        no-label-float="[[noLabelFloat]]" auto-validate="[[autoValidate]]" list="[[lit]]" size="[[size]]" autocapitalize="[[autocapitalize]]"
+        autocorrect="[[autocorrect]]" autosave="[[autosave]]" results="[[results]]" error-message="[[errorMessage]]" label="[[label]]"
+        on-blur="_onInputBlur" on-keydown="_onInputKeyDown" on-keyup="_onInputKeyUp" tabindex="-1" readonly>
+        <!--<iron-icon icon="[[prefixIcon]]" hidden="[[noPrefixIcon]]" prefix></iron-icon>
+        <iron-icon icon="arrow-drop-down" suffix></iron-icon>-->
+        </paper-input>
+    </paper-button>
+    <paper-dialog id="dialog" class="t-date-picker-dialog dialogPosition" modal="[[modal]]" on-iron-overlay-closed="_dismissDialog">
+      <paper-date-picker style="width:550px" id="picker" locale="[[locale]]" min-date="[[_computeMinDate(minDate)]]" max-date="[[_computeMaxDate(maxDate)]]"></paper-date-picker>
+      <!--<div class="buttons">
+        <paper-button dialog-dismiss on-tap="_onTapClearValue" class="btn-clear">Clear</paper-button>
+        <paper-button dialog-dismiss>Cancel</paper-button>
+        <paper-button dialog-confirm>OK</paper-button>
+      </div>-->
+    </paper-dialog>
+  </template>
+
+</dom-module>
+
+<script>
+  Polymer({
+
+    is: 't-input-date-picker',
+
+    behaviors: [
+      Polymer.IronButtonState
+    ],
+
+    hostAttributes: {
+      tabindex: '0'
+    },
+
+    properties: {
+
+      /**
+        * Turns the datepicker in a modal dialog .
+        */
+      modal: {
+        type: Boolean
+      },
+
+
+
+      /**
+        * The label for the dropdown.
+        */
+      label: {
+        type: String
+      },
+
+      /**
+        * The placeholder for the dropdown.
+        */
+      placeholder: {
+        type: String
+      },
+
+      noPrefixIcon: {
+
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true
+      },
+      disabled: {
+        type: Boolean,
+        value: false
+      },
+
+
+      prefixIcon: {
+
+        type: String,
+        value: 'today',
+        reflectToAttribute: true
+      },
+
+      /**
+        * Set to true to disable the floating label. Bind this to the
+        * `<paper-input-container>`'s `noLabelFloat` property.
+        */
+      noLabelFloat: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true
+      },
+      /**
+        * Set to true to always float the label. Bind this to the
+        * `<paper-input-container>`'s `alwaysFloatLabel` property.
+        */
+      alwaysFloatLabel: {
+        type: Boolean,
+        value: false
+      },
+
+      /**
+       * For localization formatting.
+       */
+      locale: {
+        type: String,
+        notify: true
+      },
+
+      minDate: {
+        type: Date,
+        notify: true
+      },
+
+      maxDate: {
+        type: Date,
+        notify: true
+      },
+
+      keyEventTarget: {
+        type: Object,
+        value: function () {
+          return this;
+        }
+      },
+
+      value: {
+        type: Date,
+        notify: true
+      },
+
+      inputDisplayFormat: {
+        type: String,
+        value: 'L',
+        notify: true
+      }
+    },
+
+    get $picker() {
+      return this.$.picker;
+    },
+
+    get _inputElement() {
+      return this.$.input;
+    },
+
+    _computeMinDate: function (minDate) {
+      if (minDate) {
+        return minDate;
+      }
+
+      return null;
+    },
+
+    _computeMaxDate: function (maxDate) {
+      if (maxDate) {
+        return maxDate;
+      }
+
+      return null;
+    },
+
+    listeners: {
+      'focus': '_onFocus'
+    },
+
+    _onFocus: function (e) {
+      this._inputElement.focus();
+      this.setAttribute('tabindex', '-1');
+    },
+
+    _onInputBlur: function (e) {
+      this.setAttribute('tabindex', '0');
+      e.stopPropagation();
+    },
+
+    _onInputKeyDown: function (e) {
+      if (e.keyCode === 13) {
+        this._showDialog();
+        e.stopPropagation();
+      }
+    },
+
+    _onInputKeyUp: function (e) {
+      if (e.keyCode === 46) {
+        this._clearValue();
+      }
+      e.stopPropagation();
+    },
+
+    _onTapClearValue: function () {
+      this.value = null;
+    },
+
+    // Element Lifecycle
+
+    ready: function () {
+      if (!this.locale) {
+        this.locale = window.navigator.userLanguage || window.navigator.language;
+      }
+    },
+
+    // Element Behavior
+    keyBindings: {
+      'del': '_delPressed'
+    },
+
+    _delPressed: function () {
+      this._clearValue();
+    },
+
+    _clearValue: function () {
+      this.value = null;
+    },
+
+    /**
+      * Compute the text for the input given a selected date.
+      *
+      * @param {Object} value A selected date from picker dialog.
+      */
+    _computeInputText: function (value) {
+      if (!value) {
+        return '';
+      }
+
+      return this.$picker.dateFormat(value, this.inputDisplayFormat);
+    },
+
+    _dismissDialog: function (event) {
+
+      var $this = this;
+      if ((!event.detail.canceled) && (event.detail.confirmed)) {
+        this.value = this.$picker.date;
+      }
+      var startDate = document.getElementById("start");
+      var endDate = document.getElementById("end");
+      if (this.id == 'end' && startDate.value != undefined) {
+        endDate.children[0].children[0].children[0].children[3].children[0].style.display = "block";
+        endDate.children[0].children[0].children[0].children[3].style.border = "none";
+      }
+      else if (this.id == 'start') {
+        startDate.children[0].children[0].children[0].children[3].children[0].style.display = "block";
+        startDate.children[0].children[0].children[0].children[3].style.border = "none";
+      }
+
+    },
+
+    _showDialog: function () {
+      var pcard = document.getElementById("paperCard");
+      pcard.style.display = 'none';
+      var startDate = document.getElementById("start");
+      var endDate = document.getElementById("end");
+
+      if (this.id == 'end' && startDate.value != undefined) {
+        endDate.children[0].children[0].children[0].children[3].children[0].style.display = "none";
+        endDate.children[0].children[0].children[0].children[3].style.border = "1px solid green";
+        this.$picker.date = (this.value) ? this.value : new Date();
+        this.$.dialog.toggle();
+      }
+      else if (this.id == 'start') {
+        startDate.children[0].children[0].children[0].children[3].children[0].style.display = "none";
+        startDate.children[0].children[0].children[0].children[3].style.border = "1px solid green";
+        var pdialog = document.getElementById("dialog");
+        pdialog.style.display = 'block';
+
+        this.$picker.date = (this.value) ? this.value : new Date();
+        this.$.dialog.toggle();
+      }
+
+    },
+  });
+
+</script>

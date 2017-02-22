@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>t-search test</title>
+
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../t-search.html">
+  </head>
+  <body>
+    <test-fixture id="basic">
+      <template>
+        <t-search></t-search>
+      </template>
+    </test-fixture>
+
+    <script>
+    
+      suite('t-search', function() {
+        test('instantiating the element works', function() {
+          var element = fixture('basic');
+          assert.equal(element.is, 't-search');
+        });
+         var header;
+         setup(function() {
+           header = fixture('basic');
+         });
+       
+        // test("choice appearing", function(){
+        //   assert.equal(header.choice, '1 Adult in 1 Room');
+        // })
+        // test("show appearing", function(){
+        //   assert.equal(header.show, true);
+        // })
+         
+        test('today appearing', function(){
+          
+           var todayDate = new Date();
+            todayDate.setHours(0, 0, 0, 0);
+           var headerDate = header.today;
+            headerDate.setHours(0, 0, 0, 0);
+           assert.equal(headerDate, todayDate);
+            })
+         });
+    </script>
+  </body>
+</html>
