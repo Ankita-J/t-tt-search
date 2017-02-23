@@ -47,25 +47,31 @@ The form handles below mentioned scenarios on its own.
 
 <dom-module id="t-search">
   <template>
-    <style is="custom-style">
+      <style is="custom-style">
       :host {
         display: block;
         padding: 0px;
         margin: 0px;
       }
-      
-      choice-card {
+        choice-card {
         --color-for-button: var(--button-color-for-rooms);
       }
+      /*:root {
+       --vaadin-date-picker-overlay : {
+          max-height: 250px;
+       };
+      }*/
       
       app-toolbar {
         background-color: var(--outer-container-color);
         display: block;
         height: 100px;
+        margin-top: -20px;
+        padding: 0px;
       }
       
       paper-input {
-        --paper-input-container-focus-color: #4cb050;
+        --paper-input-container-focus-color: green;
         --paper-input-container-color: lightgray;
         --paper-input-container-input-color: white;
         --paper-input-container-label-focus: lightgray;
@@ -74,37 +80,24 @@ The form handles below mentioned scenarios on its own.
       
       paper-dropdown-menu {
         --paper-input-container-color: lightgray;
-        --paper-input-container-focus-color: #4cb050;
+        --paper-input-container-focus-color: green;
         --paper-input-container-input-color: lightgray;
         --paper-input-container-label-focus: lightgray;
         --paper-menu-button-dropdown: {
           position: absolute !important;
-          top: 50px !important;
-          right: 6px !important;
-        };
+          width: 100%;
+          top: 53px !important;
+        }
+        ;
       }
-      
-      #deskinput1 {
-        width: 100%;
+       #needRoom {
+        color: var(--dropdown-element-link-color);
       }
       
       #listbox {
         border: 2px solid var(--border-color-for-cards);
       }
-      
-      #needRoom {
-        color: var(--dropdown-element-link-color);
-      }
-      
-      .button {
-        color: white;
-        background-color: var(--search-button-color);
-        width: 80px;
-        height: 40px;
-        margin-top: 18px;
-        margin-left: 10px;
-        font-size: small;
-      }
+    
       
       @media (max-width: 380px) {
         .row-xs-height {
@@ -113,12 +106,37 @@ The form handles below mentioned scenarios on its own.
           height: 100%;
           width: 100%;
         }
+        #pcard {
+          height: 550px;
+          overflow-y: auto;
+          overflow-x: hidden;
+        }
+        .button {
+          color: white;
+          background-color: var(--search-button-color);
+          width: 80px;
+          height: 40px;
+          margin-top: 18px;
+          margin-left: 40%;
+          margin-right: 60%;
+          bottom: 5px;
+          font-size: small;
+        }
         paper-card {
           position: absolute !important;
           top: 50px !important;
           width: 100%;
           border: 1px solid var(--border-color-for-cards);
           background-color: white;
+        }
+        #start {
+          width: 100%;
+        }
+        #end {
+          width: 100%;
+        }
+        #deskinput1 {
+          width: 100%;
         }
       }
       
@@ -129,11 +147,37 @@ The form handles below mentioned scenarios on its own.
           height: 100%;
           width: 100%;
         }
+        #pcard {
+          height: 550px;
+          overflow-y: auto;
+          overflow-x: hidden;
+        }
+        .button {
+          color: white;
+          background-color: var(--search-button-color);
+          width: 80px;
+          height: 40px;
+          margin-top: 18px;
+          margin-left: 40%;
+          margin-right: 60%;
+          bottom: 5px;
+          font-size: small;
+        }
         paper-card {
+          position: absolute !important;
           top: 50px !important;
           width: 100%;
           border: 1px solid var(--border-color-for-cards);
           background-color: white;
+        }
+        #start {
+          width: 100%;
+        }
+        #end {
+          width: 100%;
+        }
+        #deskinput1 {
+          width: 100%;
         }
       }
       
@@ -147,13 +191,36 @@ The form handles below mentioned scenarios on its own.
         paper-container {
           position: fixed;
         }
+        #pcard {
+          height: 400px;
+          overflow-y: auto;
+          overflow-x: hidden;
+        }
         paper-card {
           position: absolute !important;
-          top: 140px !important;
-          right: 18px !important;
-          width: 420px;
+          top: 120px !important;
+          right: 25px !important;
+          width: 400px;
           border: 2px solid var(--border-color-for-cards);
           background-color: white;
+        }
+        paper-button {
+          color: white;
+          background-color: var(--search-button-color);
+          width: 80px;
+          height: 40px;
+          right: 13px;
+          margin-left: 20px;
+          font-size: small;
+        }
+        #start {
+          width: 100%;
+        }
+        #end {
+          width: 100%;
+        }
+        #deskinput1 {
+          width: 100%;
         }
       }
       
@@ -164,13 +231,37 @@ The form handles below mentioned scenarios on its own.
           height: 100px;
           width: 100%;
         }
+        #pcard {
+          height: 400px;
+          overflow-y: auto;
+          overflow-x: hidden;
+        }
         paper-card {
           position: absolute !important;
-          top: 80px !important;
-          right: 10px !important;
-          width: 455px;
+          top: 62px !important;
+          right: 5px !important;
+          width: 400px;
           border: 2px solid var(--border-color-for-cards);
           background-color: white;
+        }
+        paper-button {
+          color: white;
+          background-color: var(--search-button-color);
+          width: 80px;
+          height: 40px;
+          right: 12px;
+          margin-top: 18px;
+          margin-left: -10px;
+          font-size: small;
+        }
+        #start {
+          width: 100%;
+        }
+        #end {
+          width: 100%;
+        }
+        #deskinput1 {
+          width: 100%;
         }
       }
       
@@ -181,13 +272,37 @@ The form handles below mentioned scenarios on its own.
           height: 100px;
           width: 100%;
         }
+        paper-button {
+          color: white;
+          background-color: var(--search-button-color);
+          width: 80px;
+          height: 40px;
+          right: 20px;
+          margin-top: 18px;
+          margin-left: 15px;
+          font-size: small;
+        }
+        #pcard {
+          height: 400px;
+          overflow-y: auto;
+          overflow-x: hidden;
+        }
         paper-card {
           position: absolute !important;
-          top: 80px !important;
-          right: 10px !important;
-          width: 430px;
+          top: 60px !important;
+          right: 20px !important;
+          width: 422px;
           border: 2px solid var(--border-color-for-cards);
           background-color: white;
+        }
+        #start {
+          width: 100%;
+        }
+        #end {
+          width: 100%;
+        }
+        #deskinput1 {
+          width: 100%;
         }
       }
       /*DATE PICKER */
@@ -208,7 +323,6 @@ The form handles below mentioned scenarios on its own.
         float: right;
       }
     </style>
-
 
     <div class="container-fluid">
       <div class="row">
