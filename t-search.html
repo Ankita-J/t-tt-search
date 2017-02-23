@@ -217,14 +217,12 @@ The form handles below mentioned scenarios on its own.
           <paper-button toggles id="buttons" on-tap='_doneRoomCard'>Done</paper-button>
         </app-toolbar>
 
-        <app-toolbar hidden$="{{showDatePicker}}" class="row-lg-height row-md-height row-sm-height row-xs-height" style="height:50px">
-    
-      </app-toolbar>
-
+ <!--<app-toolbar hidden$="{{showDatePicker}}" class="row-lg-height row-md-height row-sm-height row-xs-height" style="height:50px">
+      </app-toolbar>    -->
+          
       <app-toolbar class="row-lg-height row-md-height row-sm-height row-xs-height">
 
         <form is="iron-form" id="form" method="post" action="/form/handler">
-
           <div required auto-validate class="col-lg-4 col-md-4 col-sm-12 col-xs-12" id="deskinput" style="height:60px">
             <template is="dom-bind">
               <t-mystique-auth name="mystique" url="http://demo.travelnxt.com/api/authentication/authenticate/context" token-response="{{tokenResponse}}"
@@ -367,6 +365,9 @@ The form handles below mentioned scenarios on its own.
           return false;
         }
       },
+         /**
+       * to open the date Picker dialog on mobile screen.
+       **/ 
       _openDatePicker: function () {
         var mq = window.matchMedia("(max-width: 767px)");
         if (mq.matches && this.showToolbar == true) {
@@ -393,12 +394,17 @@ The form handles below mentioned scenarios on its own.
         var tBar = document.getElementById("toolbar");
         tBar.style.visibility = '' ? 'hidden' : '';
       },
-        
+         /**
+       * This function is used for done button which is used on the header of child form card on mobile screen.
+       * This calculate the total output.
+       **/ 
       _doneRoomCard: function () {
         var card = this.querySelector("#choiceCard");
         card.doneRoom();
       },
-
+        /**this is used for toolbar toggle.
+       * This toolbar is used for only mobile screen.
+       **/ 
       _showMainToolbar: function () {
         this.show = true;
         this.showToolbar = true;
