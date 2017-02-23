@@ -365,7 +365,9 @@ Example:
       pcard.style.display = 'none';
       var startDate = document.getElementById("start");
       var endDate = document.getElementById("end");
-
+     if (this.id == 'end' && startDate.value == undefined) {
+              startDate.invalid=true;
+             }
       if (this.id == 'end' && startDate.value != undefined) {
         endDate.children[0].children[0].children[0].children[3].children[0].style.display = "none";
         endDate.children[0].children[0].children[0].children[3].style.border = "1px solid green";
