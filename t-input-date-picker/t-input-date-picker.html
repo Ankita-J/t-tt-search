@@ -113,6 +113,9 @@ Example:
           margin: 0;
         }
       }
+         paper-button > * {
+  pointer-events: none;
+}
     </style>
 
     <paper-button on-tap="_showDialog" focus-target="[[_dropdownContent]]" tabindex="-1">
