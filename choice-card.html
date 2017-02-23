@@ -84,7 +84,7 @@ The form handles below mentioned scenarios on its own.
             </div>
             <div class="buttons">
                 <paper-button toggles on-click='addRoom'>Add Room</paper-button>
-                <paper-button toggles on-click='doneRoom'>Done</paper-button>
+                <paper-button toggles on-click='doneRoom'  hidden$="{{showButton}}">Done</paper-button>
             </div>
         </paper-material>
 
@@ -116,6 +116,23 @@ The form handles below mentioned scenarios on its own.
                     _isDeleteHidden: {
                         type: Boolean,
                         computed: '_lte(rooms.length , 1)'
+                    },
+                    /**
+                     * Property to hide done button when screen is below 767px.
+                     * it is only useful for mobile screen.
+                     **/
+
+                    showButton: {
+                        type: Boolean,
+                        value: function () {
+                            var mq = window.matchMedia("(max-width: 767px)");
+                            if (mq.matches) {
+                                return true;
+                            }
+                            else {
+                                return false;
+                            }
+                        }
                     },
                     /**
                     *This property is set for total count of rooms.
