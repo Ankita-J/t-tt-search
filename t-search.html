@@ -323,7 +323,10 @@ The form handles below mentioned scenarios on its own.
         float: right;
       }
     </style>
+ <app-header-layout>
+        <app-header><span></span><br>
 
+        </app-header>
     <div class="container-fluid">
       <div class="row">
         <app-toolbar hidden$="{{showToolbar}}" id="toolbar" class="row-lg-height row-md-height row-sm-height row-xs-height" style="height:50px">
@@ -389,6 +392,7 @@ The form handles below mentioned scenarios on its own.
         <choice-card id="choiceCard"></choice-card>
       </div>
     </paper-card>
+     </app-header-layout>
   </template>
 
   <script>
