@@ -162,7 +162,6 @@ The form handles below mentioned scenarios on its own.
                     this.push('rooms', { room: "" });
                     this.push('totalData', { total: "" });
                     this.roomCount = this.roomCount + 1;
-                    //this._idCal();
                 },
 
                 /**
@@ -198,6 +197,11 @@ The form handles below mentioned scenarios on its own.
 
                     this.roomCount = this.roomCount - 1;
                 },
+                /**
+                *Function works for delete button .
+                *on click it count id's of adult, children and child age drop down to calculate data.
+                *it calculate id's runtime while clicking on delete button.
+                **/
                 _idDelCal: function (delIndex) {
                     inputChildCount = document.getElementsByClassName("inputChildCount");
                     roomChildIdArray = [];
@@ -222,9 +226,11 @@ The form handles below mentioned scenarios on its own.
                         idArray[i] = JSON.stringify(roomIdArray);
                         roomIdArray = new Array();
                     }
-                    //    idArray.splice(delIndex);
-                    //   console.log(idArray);
-
+                    /**
+               *Function works for done button .
+               *on click it count id's of adult, children and child age drop down to calculate data.
+               *it calculate id's runtime while clicking on done button.
+               **/
                 },
                 _idCal: function () {
                     inputChildCount = document.getElementsByClassName("inputChildCount");
@@ -340,11 +346,13 @@ The form handles below mentioned scenarios on its own.
                         room.textContent = output;
                         need.parentNode.parentNode.querySelector("#listbox").selected = 1;
                         need.parentNode.parentNode.querySelector("#listbox").selected = 5;
+                        var toolbar = need.parentNode.parentNode.querySelector("#toolbar");
                         /*
                         to toggle the paper-card used for 'need more room or have children form
                         */
                         if (need.style.visibility == 'visible' || need.style.visibility == '') {
                             need.style.visibility = 'hidden';
+                            toolbar.style.visibility = 'hidden';
                         }
                     }
 
