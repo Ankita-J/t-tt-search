@@ -18,7 +18,6 @@ This component is a form that fires an event with search request object on succe
 There are two  properties that are required to run this form which initialize the location autosuggest. These are
 `data-url`, `query-params`.
 
-
 To preselect some value in the form pass the value of the property while initiating t-search.
 
 Example:
@@ -54,11 +53,10 @@ The form handles below mentioned scenarios on its own.
         padding: 0px;
         margin: 0px;
       }
-      /*:root {
-       --vaadin-date-picker-overlay : {
-          max-height: 250px;
-       };
-      }*/
+      
+      choice-card {
+        --color-for-button: var(--button-color-for-rooms);
+      }
       
       app-toolbar {
         background-color: var(--outer-container-color);
@@ -67,7 +65,7 @@ The form handles below mentioned scenarios on its own.
       }
       
       paper-input {
-        --paper-input-container-focus-color: green;
+        --paper-input-container-focus-color: #4cb050;
         --paper-input-container-color: lightgray;
         --paper-input-container-input-color: white;
         --paper-input-container-label-focus: lightgray;
@@ -76,23 +74,29 @@ The form handles below mentioned scenarios on its own.
       
       paper-dropdown-menu {
         --paper-input-container-color: lightgray;
-        --paper-input-container-focus-color: green;
+        --paper-input-container-focus-color: #4cb050;
         --paper-input-container-input-color: lightgray;
         --paper-input-container-label-focus: lightgray;
         --paper-menu-button-dropdown: {
           position: absolute !important;
-          width: 100%;
-          top: 53px !important;
-          /*right: 6px !important;    */
-        }
-        ;
+          top: 50px !important;
+          right: 6px !important;
+        };
+      }
+      
+      #deskinput1 {
+        width: 100%;
       }
       
       #listbox {
-        border: 2px solid lightgray;
+        border: 2px solid var(--border-color-for-cards);
       }
       
-      paper-button {
+      #needRoom {
+        color: var(--dropdown-element-link-color);
+      }
+      
+      .button {
         color: white;
         background-color: var(--search-button-color);
         width: 80px;
@@ -111,19 +115,10 @@ The form handles below mentioned scenarios on its own.
         }
         paper-card {
           position: absolute !important;
-          top: 200px !important;
+          top: 50px !important;
           width: 100%;
-          border: 1px solid lightgray;
+          border: 1px solid var(--border-color-for-cards);
           background-color: white;
-        }
-        #start {
-          width: 100%;
-        }
-        #end {
-          width: 100%;
-        }
-        #deskinput1 {
-          width: 100%;
         }
       }
       
@@ -135,20 +130,10 @@ The form handles below mentioned scenarios on its own.
           width: 100%;
         }
         paper-card {
-          position: absolute !important;
-          top: 200px !important;
+          top: 50px !important;
           width: 100%;
-          border: 1px solid lightgray;
+          border: 1px solid var(--border-color-for-cards);
           background-color: white;
-        }
-        #start {
-          width: 100%;
-        }
-        #end {
-          width: 100%;
-        }
-        #deskinput1 {
-          width: 100%;
         }
       }
       
@@ -167,25 +152,8 @@ The form handles below mentioned scenarios on its own.
           top: 140px !important;
           right: 18px !important;
           width: 420px;
-          border: 2px solid lightgray;
+          border: 2px solid var(--border-color-for-cards);
           background-color: white;
-        }
-        paper-button {
-          color: white;
-          background-color: var(--search-button-color);
-          width: 80px;
-          height: 40px;
-          margin-left: 22px;
-          font-size: small;
-        }
-        #start {
-          width: 100%;
-        }
-        #end {
-          width: 100%;
-        }
-        #deskinput1 {
-          width: 100%;
         }
       }
       
@@ -198,29 +166,11 @@ The form handles below mentioned scenarios on its own.
         }
         paper-card {
           position: absolute !important;
-          top: 83px !important;
+          top: 80px !important;
           right: 10px !important;
           width: 455px;
-          border: 2px solid lightgray;
+          border: 2px solid var(--border-color-for-cards);
           background-color: white;
-        }
-        paper-button {
-          color: white;
-          background-color: var(--search-button-color);
-          width: 80px;
-          height: 40px;
-          margin-top: 18px;
-          margin-left: -5px;
-          font-size: small;
-        }
-        #start {
-          width: 100%;
-        }
-        #end {
-          width: 100%;
-        }
-        #deskinput1 {
-          width: 100%;
         }
       }
       
@@ -231,31 +181,13 @@ The form handles below mentioned scenarios on its own.
           height: 100px;
           width: 100%;
         }
-        paper-button {
-          color: white;
-          background-color: var(--search-button-color);
-          width: 80px;
-          height: 40px;
-          margin-top: 18px;
-          margin-left: 15px;
-          font-size: small;
-        }
         paper-card {
           position: absolute !important;
-          top: 83px !important;
+          top: 80px !important;
           right: 10px !important;
           width: 430px;
-          border: 2px solid lightgray;
+          border: 2px solid var(--border-color-for-cards);
           background-color: white;
-        }
-        #start {
-          width: 100%;
-        }
-        #end {
-          width: 100%;
-        }
-        #deskinput1 {
-          width: 100%;
         }
       }
       /*DATE PICKER */
@@ -270,94 +202,81 @@ The form handles below mentioned scenarios on its own.
         --light-primary-color: #4cb050;
         --primary-background-color: white;
       }
-      /* #start{
-         width:100%;
+      
+      #buttons {
+        color: var(--button-color-for-rooms);
+        float: right;
       }
-      #end{
-        width:100%;
-      }   */
     </style>
 
-    <!-- force-narrow prevents the drawer from ever being displayed in persistent mode -->
-    <app-drawer-layout force-narrow>
 
-      <app-header-layout>
-        <app-header><span></span><br>
+    <div class="container-fluid">
+      <div class="row">
+        <app-toolbar hidden$="{{showToolbar}}" id="toolbar" class="row-lg-height row-md-height row-sm-height row-xs-height" style="height:50px">
+          <iron-icon icon="icons:arrow-back" style="color:white" on-tap="_showMainToolbar"></iron-icon>
+          <paper-button toggles id="buttons" on-tap='_doneRoomCard'>Done</paper-button>
+        </app-toolbar>
 
-        </app-header>
+        <app-toolbar hidden$="{{showDatePicker}}" class="row-lg-height row-md-height row-sm-height row-xs-height" style="height:50px">
+    
+      </app-toolbar>
 
+      <app-toolbar class="row-lg-height row-md-height row-sm-height row-xs-height">
 
-        <div class="container-fluid">
-          <div class="row">
+        <form is="iron-form" id="form" method="post" action="/form/handler">
 
-            <app-toolbar class="row-lg-height row-md-height row-sm-height row-xs-height">
-
-              <form is="iron-form" id="form" method="post" action="/form/handler">
-
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                  <div required auto-validate class="col-lg-4 col-md-4 col-sm-12 col-xs-12" id="deskinput" style="height:60px">
-                    <template is="dom-bind">
-                      <t-mystique-auth name="mystique" url="http://demo.travelnxt.com/api/authentication/authenticate/context" token-response="{{tokenResponse}}"
-                        auto>
-                        </t-mystique-auth>
-                        <t-autosuggest required auto-validate id="location" name="location" required selected-item="{{location}}" query-params="token={{tokenResponse.authenticationToken}}"
-                          label="Enter city, airport, address or point of interest" token-param="formattedAddress" data-url="http://demo.travelnxt.com/api/content/autosuggest/"></t-autosuggest>
-
-                    </template>
-                  </div>
-
-                  <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
-                    <t-input-date-picker required auto-validate error-message="Enter check in" class="suggestions" date-format="MM-DD-YYYY"
-                      id="start" label="Check In" min-date="[[today]]" max-date="[[checkmax]]" on-keydown="keypress">
-                      </t-input-date-picker>
-
-                  </div>
-
-                  <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
-                    <t-input-date-picker required auto-validate error-message="Enter check out" class="suggestions" id="end" label="Check Out"
-                      date-format="MM-DD-YYYY" min-date="[[today]]" on-keydown="keypress" max-date="[[checkmax]]">
-                      </t-input-date-picker>
-                  </div>
-
-                  <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
-                    <paper-dropdown-menu required auto-validate error-message="Required Field" class="suggestions" label="Travellers" id="deskinput1">
-                      <paper-listbox class="dropdown-content" id="listbox" selected="{{choice}}">
-                        <paper-item>1 Adult in 1 Room</paper-item>
-                        <paper-item>2 Adults in 1 Room</paper-item>
-                        <paper-item>3 Adults in 1 Room</paper-item>
-                        <paper-item>4 Adults in 1 Room</paper-item>
-                        <paper-item>2 Adults in 2 Rooms</paper-item>
-                        <paper-item on-tap="openChildForm" id="needRoom" style="color: #4cb050">Need more rooms or have children ? </paper-item>
-                      </paper-listbox>
-                    </paper-dropdown-menu>
-                    <input is="iron-input" type="hidden" bind-value="[[choice]]">
-                  </div>
-
-                  <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12">
-
-                    <paper-button toggles on-tap="submitDesktopInput" class="button" id="button">Search</paper-button>
-                  </div>
-
-                </div>
-              </form>
-
-            </app-toolbar>
-
+          <div required auto-validate class="col-lg-4 col-md-4 col-sm-12 col-xs-12" id="deskinput" style="height:60px">
+            <template is="dom-bind">
+              <t-mystique-auth name="mystique" url="http://demo.travelnxt.com/api/authentication/authenticate/context" token-response="{{tokenResponse}}"
+                auto>
+                </t-mystique-auth>
+                <t-autosuggest required auto-validate id="location" name="location" required selected-item="{{location}}" query-params="token={{tokenResponse.authenticationToken}}"
+                  label="Enter city, airport, address or point of interest" token-param="formattedAddress" data-url="http://demo.travelnxt.com/api/content/autosuggest/"></t-autosuggest>
+            </template>
           </div>
-        </div>
 
-
-        <paper-card hidden$="{{show}}" id="paperCard">
-          <div style="height: 400px; overflow-y: auto; overflow-x: hidden;">
-            <choice-card></choice-card>
+          <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
+            <t-input-date-picker required auto-validate error-message="Enter check in" class="suggestions" date-format="MM-DD-YYYY" id="start"
+              label="Check In" min-date="[[today]]" max-date="[[checkmax]]" on-keydown="keypress" on-tap="_openDatePicker">
+              </t-input-date-picker>
           </div>
-        </paper-card>
 
+          <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
+            <t-input-date-picker required auto-validate error-message="Enter check out" class="suggestions" id="end" label="Check Out"
+              date-format="MM-DD-YYYY" on-keydown="keypress" max-date="[[checkmax]]">
+              </t-input-date-picker>
+          </div>
 
-      </app-header-layout>
+          <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+            <paper-dropdown-menu required auto-validate error-message="Required Field" class="suggestions" label="Travellers" id="deskinput1">
+              <paper-listbox class="dropdown-content" id="listbox" selected="{{choice}}">
+                <paper-item>1 Adult in 1 Room</paper-item>
+                <paper-item>2 Adults in 1 Room</paper-item>
+                <paper-item>3 Adults in 1 Room</paper-item>
+                <paper-item>4 Adults in 1 Room</paper-item>
+                <paper-item>2 Adults in 2 Rooms</paper-item>
+                <paper-item on-tap="openChildForm" id="needRoom">Need more rooms or have children ? </paper-item>
+              </paper-listbox>
+            </paper-dropdown-menu>
+            <input is="iron-input" type="hidden" bind-value="[[choice]]">
+          </div>
 
-    </app-drawer-layout>
+          <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12 text-center">
+            <paper-button toggles on-tap="submitDesktopInput" class="button" id="button">Search</paper-button>
+          </div>
 
+        </form>
+
+      </app-toolbar>
+
+    </div>
+    </div>
+
+    <paper-card hidden$="{{show}}" id="paperCard">
+      <div style="height: 490px; overflow-y: auto; overflow-x: hidden;">
+        <choice-card id="choiceCard"></choice-card>
+      </div>
+    </paper-card>
   </template>
 
   <script>
@@ -365,14 +284,38 @@ The form handles below mentioned scenarios on its own.
       is: 't-search',
       properties: {
         /**
-   * This contain search form to search a hotel based on location, check-in date, check-out date and travellers.
-   */
-
+        * This contain search form to search a hotel based on location, check-in date, check-out date and travellers.
+        */
+        dataUrl: {
+          value: String,
+          value: '',
+          reflectToAttribute: true,
+        },
+        queryParams: {
+          type: String,
+          notify: true
+        },
         /*
         *travellers drop down for toggle purpose.
         */
 
         show: {
+          type: Boolean,
+          value: true
+        },
+        /*
+        *travellers drop down toolbar for toggle purpose.
+        */
+
+        showToolbar: {
+          type: Boolean,
+          value: true
+        },
+        showCard: {
+          type: Boolean,
+          value: true
+        },
+        showDatePicker: {
           type: Boolean,
           value: true
         },
@@ -385,11 +328,6 @@ The form handles below mentioned scenarios on its own.
           value: function () {
             return new Date();
           }
-        },
-        isInvalid: {
-          type: Boolean,
-          value: false,
-          reflectToAttribute: true
         },
 
         /*
@@ -429,6 +367,12 @@ The form handles below mentioned scenarios on its own.
           return false;
         }
       },
+      _openDatePicker: function () {
+        var mq = window.matchMedia("(max-width: 767px)");
+        if (mq.matches && this.showToolbar == true) {
+          this.showDatePicker = !this.showDatePicker;
+        }
+      },
 
       /*
       *to open the paper-card on click of 'need more rooms or have children'
@@ -437,15 +381,28 @@ The form handles below mentioned scenarios on its own.
       */
 
       openChildForm: function () {
-        var pCard = document.getElementById("paperCard");
-        pCard.style.display = 'block';
         if (this.show = true) {
           this.show = !this.show
         }
+        var mq = window.matchMedia("(max-width: 767px)");
+        if (mq.matches && this.showToolbar == true) {
+          this.showToolbar = !this.showToolbar;
+        }
         var pCard = document.getElementById("paperCard");
         pCard.style.visibility = '' ? 'hidden' : '';
+        var tBar = document.getElementById("toolbar");
+        tBar.style.visibility = '' ? 'hidden' : '';
+      },
+        
+      _doneRoomCard: function () {
+        var card = this.querySelector("#choiceCard");
+        card.doneRoom();
       },
 
+      _showMainToolbar: function () {
+        this.show = true;
+        this.showToolbar = true;
+      },
       /*
       *To collect the input from form on click of search button.
       *This function also validates the each field of the form.
@@ -456,11 +413,13 @@ The form handles below mentioned scenarios on its own.
         var input = document.getElementsByClassName("suggestions");
         var data = [];
 
-        var button = this.$.button;
-        button.textContent = 'searching';
-
         for (var i = 0; i < input.length; i++) {
-          data[i] = input[i].value;
+          if (i == 0) {
+            data[i] = input[i].bindValue;
+          }
+          else {
+            data[i] = input[i].value;
+          }
         }
         if (data[0] == "" && data[1] == null && data[2] == null && data[3] == null) {
           document.getElementById("main1").invalid = true;
@@ -525,9 +484,10 @@ The form handles below mentioned scenarios on its own.
           this.$.deskinput1.invalid = true;
         }
         else {
-          console.log(data);
-          var myJSON = (JSON.stringify(data));
-          alert(myJSON);  // will alert the value of the input
+          var button = this.$.button;
+          button.textContent = 'searching';
+          var myJSON = JSON.stringify(data);
+          alert(myJSON);    // will alert the value of the input
           console.log(myJSON);
           return false;      // stop form from posting
         }
@@ -537,30 +497,24 @@ The form handles below mentioned scenarios on its own.
       * function to control date picker for checkin and checkout dates.
       */
       ready: function () {
-        window.setTimeout(function () {
-          var start = document.querySelector('#start');
-          var end = document.querySelector('#end');
-          var CurrentDate;
-          start.addEventListener('value-changed', function () {
-            // Open the end date picker with a delay to
-            // make it less confusing.
-            window.setTimeout(function () {
-              // var startVal=start.value;
-              // startVal.setHours(0, 0, 0, 0);
-              //  startVal.setDate(startVal.getDate() +1);
-              // end.value = startVal;
-
-              start.minDate = new Date();
-              CurrentDate = start.value;
-              CurrentDate.setHours(0, 0, 0, 0);
-              CurrentDate.setDate(CurrentDate.getDate());
-              end.minDate = CurrentDate;
-              end.value = CurrentDate;
-              end._showDialog();
-            }, 500);
-          });
-        }, 500);
-
+        //  window.setTimeout(function (){      
+        var start = document.querySelector('#start');
+        var end = document.querySelector('#end');
+        var CurrentDate;
+        start.addEventListener('value-changed', function () {
+          // Open the end date picker with a delay to
+          // make it less confusing.
+          window.setTimeout(function () {
+            start.minDate = new Date();
+            CurrentDate = start.value;
+            CurrentDate.setHours(0, 0, 0, 0);
+            CurrentDate.setDate(CurrentDate.getDate() + 1);
+            end.minDate = CurrentDate;
+            end.value = CurrentDate;
+            end._showDialog();
+          }, 500);
+        });
+        //}, 500);
 
         var e = document.createElement('paper-dropdown-menu');
         var p = Object.getPrototypeOf(e);
