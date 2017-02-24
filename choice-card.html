@@ -25,13 +25,6 @@ The form handles below mentioned scenarios on its own.
                 display: block;
             }
             
-            .buttons {
-                color: #478BD7;
-                float: right;
-                margin-right: 10px;
-                margin-top: 20px;
-            }
-            
             #line {
                 width: 100%;
                 border-bottom: 1px solid black;
@@ -57,6 +50,14 @@ The form handles below mentioned scenarios on its own.
                     width: 100%;
                     margin-top: 20px;
                 }
+                #button1{
+                    color: var(--color-for-button);
+                     margin-right: 10px;
+                margin-top: 20px;
+                   }
+                #button2{
+                    display: none;
+                }
             }
             
             @media (min-width: 600px) {
@@ -64,6 +65,25 @@ The form handles below mentioned scenarios on its own.
                     float: left;
                     width: 95%;
                     margin-top: 20px;
+                }
+                 .buttons {
+                color: var(--color-for-button);
+                float: right;
+                margin-right: 10px;
+                margin-top: 20px;
+            }
+              #button1{
+                    color: var(--color-for-button);
+                     float:left;
+                     margin-right: 10px;
+                margin-top: 20px;
+                float:clear;
+                   }
+                 #button2{
+                    float:left;
+                    display: block;
+                     margin-right: 10px;
+                margin-top: 20px;
                 }
             }
         </style>
@@ -78,13 +98,13 @@ The form handles below mentioned scenarios on its own.
                                 <paper-button toggles hidden="[[_isDeleteHidden]]" class=button on-click="deleteRoom"><img src="trash.png" height="20px" width="20px"></paper-button>
                             </paper-item>
                         </div>
-                        <choice-form room="{{displayIndex(index)}}">{{ item.room }}</choice-form>
+                        <choice-form room="{{displayIndex(index)}}" id="choiceRoom">{{ item.room }}</choice-form>
                     </template>
                 </form>
             </div>
             <div class="buttons">
-                <paper-button toggles on-click='addRoom'>Add Room</paper-button>
-                <paper-button toggles on-click='doneRoom'  hidden$="{{showButton}}">Done</paper-button>
+                <paper-button id="button1" toggles on-click='addRoom'>Add Room</paper-button>
+                <paper-button id="button2" toggles on-click='doneRoom'  hidden$="{{showButton}}">Done</paper-button>
             </div>
         </paper-material>
 
@@ -213,6 +233,11 @@ The form handles below mentioned scenarios on its own.
                     console.log(idArray);
 
                     this.roomCount = this.roomCount - 1;
+                    var mq = window.matchMedia("(max-width: 767px)");
+                     if (mq.matches) {
+                        var form = this.querySelector("#choiceRoom");
+                        form._calResultOfRoom();
+                     }
                 },
                 /**
                 *Function works for delete button .
