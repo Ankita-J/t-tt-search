@@ -47,13 +47,14 @@ The form handles below mentioned scenarios on its own.
 
 <dom-module id="t-search">
   <template>
-      <style is="custom-style">
+    <style is="custom-style">
       :host {
         display: block;
         padding: 0px;
         margin: 0px;
       }
-        choice-card {
+      
+      choice-card {
         --color-for-button: var(--button-color-for-rooms);
       }
       /*:root {
@@ -68,6 +69,17 @@ The form handles below mentioned scenarios on its own.
         height: 100px;
         margin-top: -20px;
         padding: 0px;
+      }
+      
+      iron-icon {
+        color: lightgray;
+        margin-top: 10px;
+      }
+      
+      #buttons {
+        color: var(--button-color-for-rooms);
+        float: right;
+        margin-top: 3px;
       }
       
       paper-input {
@@ -90,14 +102,14 @@ The form handles below mentioned scenarios on its own.
         }
         ;
       }
-       #needRoom {
+      
+      #needRoom {
         color: var(--dropdown-element-link-color);
       }
       
       #listbox {
         border: 2px solid var(--border-color-for-cards);
       }
-    
       
       @media (max-width: 380px) {
         .row-xs-height {
@@ -105,11 +117,6 @@ The form handles below mentioned scenarios on its own.
           table-layout: fixed;
           height: 100%;
           width: 100%;
-        }
-        #pcard {
-          height: 550px;
-          overflow-y: auto;
-          overflow-x: hidden;
         }
         .button {
           color: white;
@@ -126,6 +133,9 @@ The form handles below mentioned scenarios on its own.
           position: absolute !important;
           top: 50px !important;
           width: 100%;
+          height: 750px;
+          overflow-y: auto;
+          overflow-x: hidden;
           border: 1px solid var(--border-color-for-cards);
           background-color: white;
         }
@@ -147,11 +157,6 @@ The form handles below mentioned scenarios on its own.
           height: 100%;
           width: 100%;
         }
-        #pcard {
-          height: 550px;
-          overflow-y: auto;
-          overflow-x: hidden;
-        }
         .button {
           color: white;
           background-color: var(--search-button-color);
@@ -167,6 +172,9 @@ The form handles below mentioned scenarios on its own.
           position: absolute !important;
           top: 50px !important;
           width: 100%;
+          height: 750px;
+          overflow-y: auto;
+          overflow-x: hidden;
           border: 1px solid var(--border-color-for-cards);
           background-color: white;
         }
@@ -191,16 +199,17 @@ The form handles below mentioned scenarios on its own.
         paper-container {
           position: fixed;
         }
-        #pcard {
-          height: 400px;
-          overflow-y: auto;
-          overflow-x: hidden;
+        #toolbar {
+          display: none;
         }
         paper-card {
           position: absolute !important;
           top: 120px !important;
-          right: 25px !important;
+          right: 18px !important;
           width: 400px;
+          height: 450px;
+          overflow-y: auto;
+          overflow-x: hidden;
           border: 2px solid var(--border-color-for-cards);
           background-color: white;
         }
@@ -209,7 +218,7 @@ The form handles below mentioned scenarios on its own.
           background-color: var(--search-button-color);
           width: 80px;
           height: 40px;
-          right: 13px;
+          right: 20px;
           margin-left: 20px;
           font-size: small;
         }
@@ -231,16 +240,17 @@ The form handles below mentioned scenarios on its own.
           height: 100px;
           width: 100%;
         }
-        #pcard {
-          height: 400px;
-          overflow-y: auto;
-          overflow-x: hidden;
+        #toolbar {
+          display: none;
         }
         paper-card {
           position: absolute !important;
           top: 62px !important;
           right: 5px !important;
           width: 400px;
+          height: 450px;
+          overflow-y: auto;
+          overflow-x: hidden;
           border: 2px solid var(--border-color-for-cards);
           background-color: white;
         }
@@ -249,7 +259,7 @@ The form handles below mentioned scenarios on its own.
           background-color: var(--search-button-color);
           width: 80px;
           height: 40px;
-          right: 12px;
+          right: 35px;
           margin-top: 18px;
           margin-left: -10px;
           font-size: small;
@@ -272,6 +282,9 @@ The form handles below mentioned scenarios on its own.
           height: 100px;
           width: 100%;
         }
+        #toolbar {
+          display: none;
+        }
         paper-button {
           color: white;
           background-color: var(--search-button-color);
@@ -282,16 +295,14 @@ The form handles below mentioned scenarios on its own.
           margin-left: 15px;
           font-size: small;
         }
-        #pcard {
-          height: 400px;
-          overflow-y: auto;
-          overflow-x: hidden;
-        }
         paper-card {
           position: absolute !important;
           top: 60px !important;
           right: 20px !important;
           width: 422px;
+          height: 450px;
+          overflow-y: auto;
+          overflow-x: hidden;
           border: 2px solid var(--border-color-for-cards);
           background-color: white;
         }
@@ -317,82 +328,78 @@ The form handles below mentioned scenarios on its own.
         --light-primary-color: #4cb050;
         --primary-background-color: white;
       }
-      
-      #buttons {
-        color: var(--button-color-for-rooms);
-        float: right;
-      }
     </style>
- <app-header-layout>
-        <app-header><span></span><br>
+    <app-header-layout>
+      <app-header><span></span><br>
 
-        </app-header>
-    <div class="container-fluid">
-      <div class="row">
-        <app-toolbar hidden$="{{showToolbar}}" id="toolbar" class="row-lg-height row-md-height row-sm-height row-xs-height" style="height:50px">
-          <iron-icon icon="icons:arrow-back" style="color:white" on-tap="_showMainToolbar"></iron-icon>
-          <paper-button toggles id="buttons" on-tap='_doneRoomCard'>Done</paper-button>
-        </app-toolbar>
+      </app-header>
 
- <!--<app-toolbar hidden$="{{showDatePicker}}" class="row-lg-height row-md-height row-sm-height row-xs-height" style="height:50px">
+      <div class="container-fluid">
+        <div class="row">
+          <app-toolbar hidden$="{{showToolbar}}" id="toolbar" class="row-lg-height row-md-height row-sm-height row-xs-height" style="height:50px">
+            <iron-icon icon="icons:arrow-back" style="color:white" on-tap="_showMainToolbar"></iron-icon>
+            <paper-button toggles id="buttons" on-tap='_doneRoomCard'>Done</paper-button>
+          </app-toolbar>
+
+          <!--<app-toolbar hidden$="{{showDatePicker}}" class="row-lg-height row-md-height row-sm-height row-xs-height" style="height:50px">
       </app-toolbar>    -->
-          
-      <app-toolbar class="row-lg-height row-md-height row-sm-height row-xs-height">
 
-        <form is="iron-form" id="form" method="post" action="/form/handler">
-          <div required auto-validate class="col-lg-4 col-md-4 col-sm-12 col-xs-12" id="deskinput" style="height:60px">
-            <template is="dom-bind">
-              <t-mystique-auth name="mystique" url="http://demo.travelnxt.com/api/authentication/authenticate/context" token-response="{{tokenResponse}}"
-                auto>
-                </t-mystique-auth>
-                <t-autosuggest required auto-validate id="location" name="location" required selected-item="{{location}}" query-params="token={{tokenResponse.authenticationToken}}"
-                  label="Enter city, airport, address or point of interest" token-param="formattedAddress" data-url="http://demo.travelnxt.com/api/content/autosuggest/"></t-autosuggest>
-            </template>
-          </div>
+          <app-toolbar class="row-lg-height row-md-height row-sm-height row-xs-height">
 
-          <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
-            <t-input-date-picker required auto-validate error-message="Enter check in" class="suggestions" date-format="MM-DD-YYYY" id="start"
-              label="Check In" min-date="[[today]]" max-date="[[checkmax]]" on-keydown="keypress" on-tap="_openDatePicker">
-              </t-input-date-picker>
-          </div>
+            <form is="iron-form" id="form" method="post" action="/form/handler">
+              <div required auto-validate class="col-lg-4 col-md-4 col-sm-12 col-xs-12" id="deskinput" style="height:60px">
+                <template is="dom-bind">
+                  <t-mystique-auth name="mystique" url="http://demo.travelnxt.com/api/authentication/authenticate/context" token-response="{{tokenResponse}}"
+                    auto>
+                    </t-mystique-auth>
+                    <t-autosuggest required auto-validate id="location" name="location" required selected-item="{{location}}" query-params="token={{tokenResponse.authenticationToken}}"
+                      label="Enter city, airport, address or point of interest" token-param="formattedAddress" data-url="http://demo.travelnxt.com/api/content/autosuggest/"></t-autosuggest>
+                </template>
+              </div>
 
-          <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
-            <t-input-date-picker required auto-validate error-message="Enter check out" class="suggestions" id="end" label="Check Out"
-              date-format="MM-DD-YYYY" on-keydown="keypress" max-date="[[checkmax]]">
-              </t-input-date-picker>
-          </div>
+              <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
+                <t-input-date-picker required auto-validate error-message="Enter check in" class="suggestions" date-format="MM-DD-YYYY" id="start"
+                  label="Check In" min-date="[[today]]" max-date="[[checkmax]]" on-keydown="keypress" on-tap="_openDatePicker">
+                  </t-input-date-picker>
+              </div>
 
-          <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
-            <paper-dropdown-menu required auto-validate error-message="Required Field" class="suggestions" label="Travellers" id="deskinput1">
-              <paper-listbox class="dropdown-content" id="listbox" selected="{{choice}}">
-                <paper-item>1 Adult in 1 Room</paper-item>
-                <paper-item>2 Adults in 1 Room</paper-item>
-                <paper-item>3 Adults in 1 Room</paper-item>
-                <paper-item>4 Adults in 1 Room</paper-item>
-                <paper-item>2 Adults in 2 Rooms</paper-item>
-                <paper-item on-tap="openChildForm" id="needRoom">Need more rooms or have children ? </paper-item>
-              </paper-listbox>
-            </paper-dropdown-menu>
-            <input is="iron-input" type="hidden" bind-value="[[choice]]">
-          </div>
+              <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
+                <t-input-date-picker required auto-validate error-message="Enter check out" class="suggestions" id="end" label="Check Out"
+                  date-format="MM-DD-YYYY" on-keydown="keypress" max-date="[[checkmax]]">
+                  </t-input-date-picker>
+              </div>
 
-          <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12 text-center">
-            <paper-button toggles on-tap="submitDesktopInput" class="button" id="button">Search</paper-button>
-          </div>
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                <paper-dropdown-menu required auto-validate error-message="Required Field" class="suggestions" label="Travellers" id="deskinput1">
+                  <paper-listbox class="dropdown-content" id="listbox" selected="{{choice}}">
+                    <paper-item>1 Adult in 1 Room</paper-item>
+                    <paper-item>2 Adults in 1 Room</paper-item>
+                    <paper-item>3 Adults in 1 Room</paper-item>
+                    <paper-item>4 Adults in 1 Room</paper-item>
+                    <paper-item>2 Adults in 2 Rooms</paper-item>
+                    <paper-item on-tap="openChildForm" id="needRoom">Need more rooms or have children ? </paper-item>
+                  </paper-listbox>
+                </paper-dropdown-menu>
+                <input is="iron-input" type="hidden" bind-value="[[choice]]">
+              </div>
 
-        </form>
+              <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12 text-center">
+                <paper-button toggles on-tap="submitDesktopInput" class="button" id="button">Search</paper-button>
+              </div>
 
-      </app-toolbar>
+            </form>
 
-    </div>
-    </div>
+          </app-toolbar>
 
-    <paper-card hidden$="{{show}}" id="paperCard">
-      <div style="height: 490px; overflow-y: auto; overflow-x: hidden;">
-        <choice-card id="choiceCard"></choice-card>
+        </div>
       </div>
-    </paper-card>
-     </app-header-layout>
+
+      <paper-card hidden$="{{show}}" id="paperCard">
+        <div>
+          <choice-card id="choiceCard"></choice-card>
+        </div>
+      </paper-card>
+    </app-header-layout>
   </template>
 
   <script>
@@ -483,9 +490,9 @@ The form handles below mentioned scenarios on its own.
           return false;
         }
       },
-         /**
-       * to open the date Picker dialog on mobile screen.
-       **/ 
+      /**
+    * to open the date Picker dialog on mobile screen.
+    **/
       _openDatePicker: function () {
         var mq = window.matchMedia("(max-width: 767px)");
         if (mq.matches && this.showToolbar == true) {
@@ -500,7 +507,7 @@ The form handles below mentioned scenarios on its own.
       */
 
       openChildForm: function () {
-           var pCard = document.getElementById("paperCard");
+        var pCard = document.getElementById("paperCard");
         pCard.style.display = 'block';
         if (this.show = true) {
           this.show = !this.show
@@ -514,17 +521,17 @@ The form handles below mentioned scenarios on its own.
         var tBar = document.getElementById("toolbar");
         tBar.style.visibility = '' ? 'hidden' : '';
       },
-         /**
-       * This function is used for done button which is used on the header of child form card on mobile screen.
-       * This calculate the total output.
-       **/ 
+      /**
+    * This function is used for done button which is used on the header of child form card on mobile screen.
+    * This calculate the total output.
+    **/
       _doneRoomCard: function () {
         var card = this.querySelector("#choiceCard");
         card.doneRoom();
       },
-        /**this is used for toolbar toggle.
-       * This toolbar is used for only mobile screen.
-       **/ 
+      /**this is used for toolbar toggle.
+     * This toolbar is used for only mobile screen.
+     **/
       _showMainToolbar: function () {
         this.show = true;
         this.showToolbar = true;
