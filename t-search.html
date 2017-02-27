@@ -6,8 +6,6 @@
 <link rel="import" href="bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="t-input-date-picker/t-input-date-picker.html">
 <link rel="stylesheet" href="bower_components\bootstrap\dist\css\bootstrap.min.css">
-<!--<script src="bower_components\bootstrap\dist\js\bootstrap.min.js"></script>
-<script src="bower_components\jquery\dist\jquery.js"></script>-->
 <link rel="import" href="choice-card.html">
 
 
@@ -51,44 +49,33 @@ The form handles below mentioned scenarios on its own.
         display: block;
         padding: 0px;
         margin: 0px;
-      }
-      
+      }      
       choice-card {
         --color-for-button: var(--button-color-for-rooms);
       }
-      /*:root {
-       --vaadin-date-picker-overlay : {
-          max-height: 250px;
-       };
-      }*/
-      
       app-toolbar {
         background-color: var(--outer-container-color);
         display: block;
         height: 100px;
         margin-top: -20px;
         padding: 0px;
-      }
-      
+      }      
       iron-icon {
         color: lightgray;
         margin-top: 10px;
-      }
-      
+      }      
       #buttons {
         color: var(--button-color-for-rooms);
         float: right;
         margin-top: 3px;
-      }
-      
+      }      
       paper-input {
         --paper-input-container-focus-color: green;
         --paper-input-container-color: lightgray;
         --paper-input-container-input-color: white;
         --paper-input-container-label-focus: lightgray;
         font-size: small;
-      }
-      
+      }      
       paper-dropdown-menu {
         --paper-input-container-color: lightgray;
         --paper-input-container-focus-color: green;
@@ -98,14 +85,11 @@ The form handles below mentioned scenarios on its own.
           position: absolute !important;
           width: 100%;
           top: 53px !important;
-        }
-        ;
+        };
       }
-      
       #needRoom {
         color: var(--dropdown-element-link-color);
-      }
-      
+      }      
       #listbox {
         border: 2px solid var(--border-color-for-cards);
       }
@@ -344,24 +328,42 @@ The form handles below mentioned scenarios on its own.
       }
     </style>
     <app-header-layout>
-      <app-header><span></span><br>
-
-      </app-header>
+      <app-header><span></span><br></app-header>
 
       <div class="container-fluid">
         <div class="row">
-          <app-toolbar hidden$="{{showToolbar}}" id="toolbar" class="row-lg-height row-md-height row-sm-height row-xs-height" style="height:50px">
+            
+            <!--Toolbar to show on mobile screen for Drop down link 'Need more rooms or have children' .
+          This is hidden while user is working desktop mode or tablet mode.
+          It will come in picture after user clicking on 'Need more rooms or have children' mobile screen..       -->
+            
+          <app-toolbar hidden$="{{showToolbar}}" id="toolbarRoom" class="row-lg-height row-md-height row-sm-height row-xs-height" style="height:50px">
             <iron-icon icon="icons:arrow-back" style="color:white" on-tap="_showMainToolbar"></iron-icon>
             <paper-button toggles id="buttons" on-tap='_doneRoomCard'>Done</paper-button>
           </app-toolbar>
-
+                
+            <!--Toolbar to show on mobile screen for date picker.
+          This is hidden while user is working desktop mode or tablet mode.
+          It will come in picture after user clicking on date picker at mobile screen.       -->
+        
           <app-toolbar hidden$="{{showDatePicker}}" id="toolbar1" class="row-lg-height row-md-height row-sm-height row-xs-height" style="height:60px">
-           <div id="selectDate"> <iron-icon icon="icons:arrow-back" style="color:white;float:left;" on-tap="_showMainToolbar"></iron-icon>
+           <div id="selectDate">
+             <iron-icon icon="icons:arrow-back" style="color:white;float:left;" on-tap="_showMainToolbar"></iron-icon>
             <span>Selected Dates</span>
             <paper-button toggles id="buttons" on-tap='_doneDatePicker'>Done</paper-button>
             </div>
           </app-toolbar>
-          <app-toolbar class="row-lg-height row-md-height row-sm-height row-xs-height">
+          
+            <!--Toolbar to show on mobile screen for Auto suggest.
+            This is hidden while user is working desktop mode or tablet mode.
+            It will come in picture after user providing three input characters at autosuggest at mobile screen.       -->
+            <!--<app-toolbar hidden$="{{showDatePicker}}" class="row-lg-height row-md-height row-sm-height row-xs-height" id="toolbarAutoComplete"
+              style="height:50px">
+              <iron-icon icon="icons:arrow-back" on-tap="_showMainToolbar"></iron-icon>
+            </app-toolbar>-->
+
+             <!--Main toolbar which contains auto suggest dropdown, date pickers and travellers drop down at all screens. -->
+            <app-toolbar class="row-lg-height row-md-height row-sm-height row-xs-height">
 
             <form is="iron-form" id="form" method="post" action="/form/handler">
               <div required auto-validate class="col-lg-4 col-md-4 col-sm-12 col-xs-12" id="deskinput" style="height:60px">
@@ -513,16 +515,16 @@ The form handles below mentioned scenarios on its own.
       _openDatePicker: function () {
         var mq = window.matchMedia("(max-width: 767px)");
         if (mq.matches) {
-          document.getElementById("toolbar1").style.display = "block";
-          document.getElementById("deskinput").style.display = "none";
-          document.getElementById("deskinput1").style.display = "none";
-          document.getElementById("button").style.display = "none";
-          document.getElementById("start1").style.backgroundColor="white";
-          document.getElementById("end1").style.backgroundColor="white";
-          var startInput= document.getElementById("start");
-           var endInput= document.getElementById("end");
-        startInput.children[0].children[0].children[0].children[2].children[0].children[1].style.color="black";
-        endInput.children[0].children[0].children[0].children[2].children[0].children[1].style.color="black";
+          Polymer.dom(this.$.toolbar1).node.style.display = "block";
+          Polymer.dom(this.$.deskinput).node.style.display = "none";
+          Polymer.dom(this.$.deskinput1).node.style.display = "none";
+          Polymer.dom(this.$.button).node.style.display = "none";
+          Polymer.dom(this.$.start1).node.style.backgroundColor="white";
+          Polymer.dom(this.$.end1).node.style.backgroundColor="white";
+          var startInput = Polymer.dom(this.$.start).node;
+          var endInput = Polymer.dom(this.$.end).node;
+          startInput.children[0].children[0].children[0].children[2].children[0].children[1].style.color="black";
+          endInput.children[0].children[0].children[0].children[2].children[0].children[1].style.color="black";
         }
         if (this.show = true) {
           this.show = !this.show
@@ -531,11 +533,10 @@ The form handles below mentioned scenarios on its own.
         if (mq.matches && this.showDatePicker == true) {
           this.showDatePicker = !this.showDatePicker;
         }
-        var pdialog = document.getElementById("dialog");
+        var pdialog = Polymer.dom(this.$.dialog).node;
         pdialog.style.visibility = '' ? 'hidden' : '';
-        var tBar1 = document.getElementById("toolbar1");
+        var tBar1 = Polymer.dom(this.$.toolbar1).node;
         tBar1.style.visibility = '' ? 'hidden' : '';
-
       },
 
       /*
@@ -545,7 +546,7 @@ The form handles below mentioned scenarios on its own.
       */
 
       openChildForm: function () {
-        var pCard = document.getElementById("paperCard");
+        var pCard =  Polymer.dom(this.$.paperCard).node;
         pCard.style.display = 'block';
         if (this.show = true) {
           this.show = !this.show
@@ -553,10 +554,9 @@ The form handles below mentioned scenarios on its own.
         var mq = window.matchMedia("(max-width: 767px)");
         if (mq.matches && this.showToolbar == true) {
           this.showToolbar = !this.showToolbar;
-        }
-        var pCard = document.getElementById("paperCard");
+        }        
         pCard.style.visibility = '' ? 'hidden' : '';
-        var tBar = document.getElementById("toolbar");
+        var tBar = Polymer.dom(this.$.toolbarRoom).node;
         tBar.style.visibility = '' ? 'hidden' : '';
       },
       /**
@@ -572,14 +572,14 @@ The form handles below mentioned scenarios on its own.
       _doneDatePicker: function () {
         this.show = true;
         this.showToolbar = true;
-        document.getElementById("toolbar1").style.display = "none";
-        document.getElementById("deskinput").style.display = "block";
-        document.getElementById("deskinput1").style.display = "block";
-        document.getElementById("button").style.display = "block";
-         document.getElementById("start1").style.backgroundColor="#424d51";
-          document.getElementById("end1").style.backgroundColor="#424d51";
-           var startInput= document.getElementById("start");
-           var endInput= document.getElementById("end");
+        Polymer.dom(this.$.toolbar1).node.style.display = "none";
+        Polymer.dom(this.$.deskinout).node.style.display = "block";
+        Polymer.dom(this.$.deskinput1).node.style.display = "block";
+        Polymer.dom(this.$.button).node.style.display = "block";
+        Polymer.dom(this.$.start1).node.style.backgroundColor="#424d51";
+        Polymer.dom(this.$.end1).node.style.backgroundColor="#424d51";
+        var startInput= Polymer.dom(this.$.start).node;
+        var endInput= Polymer.dom(this.$.end).node;
         startInput.children[0].children[0].children[0].children[2].children[0].children[1].style.color="white";
         endInput.children[0].children[0].children[0].children[2].children[0].children[1].style.color="white";
       },
@@ -589,27 +589,18 @@ The form handles below mentioned scenarios on its own.
       _showMainToolbar: function () {
         this.show = true;
         this.showToolbar = true;
-        document.getElementById("toolbar1").style.display = "none";
-        document.getElementById("deskinput").style.display = "block";
-        document.getElementById("deskinput1").style.display = "block";
-        document.getElementById("button").style.display = "block";
-         document.getElementById("start1").style.backgroundColor="#424d51";
-          document.getElementById("end1").style.backgroundColor="#424d51";
-           var startInput= document.getElementById("start");
-           var endInput= document.getElementById("end");
+        Polymer.dom(this.$.toolbar1).node.style.display = "none";
+        Polymer.dom(this.$.deskinout).node.style.display = "block";
+        Polymer.dom(this.$.deskinput1).node.style.display = "block";
+        Polymer.dom(this.$.button).node.style.display = "block";
+        Polymer.dom(this.$.start1).node.style.backgroundColor="#424d51";
+        Polymer.dom(this.$.end1).node.style.backgroundColor="#424d51";
+        var startInput= Polymer.dom(this.$.start).node;
+        var endInput= Polymer.dom(this.$.end).node;
         startInput.children[0].children[0].children[0].children[2].children[0].children[1].style.color="white";
         endInput.children[0].children[0].children[0].children[2].children[0].children[1].style.color="white";
       },
-      // _openList: function () {
-      //   var listopen = document.getElementById("deskinput1");
-      //   var listItem=document.getElementsByClassName("suggestions")[3].value;
-      //   if(listItem==undefined){
-      //   listopen.children[1].children[0].children[0].children[1].children[0].children[3].children[0].style.border = "1px solid green";
-      //   }
-      //   else{
-      //     listopen.children[1].children[0].children[0].children[1].children[0].children[3].children[0].style.border = "1px solid red";
-      //   }
-      // },
+        
       /*
       *To collect the input from form on click of search button.
       *This function also validates the each field of the form.
@@ -705,8 +696,8 @@ The form handles below mentioned scenarios on its own.
       */
       ready: function () {
         //  window.setTimeout(function (){      
-        var start = document.querySelector('#start');
-        var end = document.querySelector('#end');
+        var start = this.$$('#start');
+        var end = this.$$('#end');
         var CurrentDate;
         start.addEventListener('value-changed', function () {
           // Open the end date picker with a delay to
