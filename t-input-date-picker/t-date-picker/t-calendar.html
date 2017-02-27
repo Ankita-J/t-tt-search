@@ -618,10 +618,13 @@
 
         _getDayClass: function (cssClass, date) {
           if (date) {
-            if (dateDiff(date, this.today) === 0) {
-              cssClass += ' today';
+            var startdate = document.getElementById("start").value;
+            if (dateDiff(date, this.today) === 0 && startdate === undefined) {
+              cssClass += ' selectToday';
             }
-
+            else if (dateDiff(date, this.today) === 0 && dateDiff(startdate, this.today) != 0) {
+              cssClass += ' selectToday';
+            }
             if (dateDiff(date, this.date) === 0) {
               cssClass += ' selected';
               this.async(function () {
@@ -630,7 +633,7 @@
             }
 
             var enddate;
-            var startdate = document.getElementById("start").value;
+
 
             if (startdate === undefined) {
               startdate = this.today;
@@ -644,9 +647,10 @@
               enddate.setHours(0, 0, 0, 0);
             }
             date.setHours(0, 0, 0, 0);
-            if (date.getTime() === this.today.getTime()) {
+            if (date.getTime() === this.today.getTime() && dateDiff(startdate, this.today) != 0) {
               cssClass += ' selectToday';
             }
+             
 
             date.setHours(0, 0, 0, 0);
             if (date.getTime() === startdate.getTime() && this.today.getTime() != startdate.getTime()) {
@@ -660,7 +664,7 @@
                 });
               }
             }
-            if (date.getTime() === startdate.getTime()) {
+            if (date.getTime() === startdate.getTime() && this.today.getTime() != startdate.getTime()) {
               cssClass += ' selectedStart';
               cssClass += ' selectfirst';
               this.async(function () {
@@ -693,7 +697,6 @@
                 this._updateSelection();
               });
             }
-
             //add 6 days    
             var datepick = document.getElementById("start").value;
             var datepickend = document.getElementById("end").value;
