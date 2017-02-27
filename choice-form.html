@@ -243,15 +243,15 @@ The form handles below mentioned scenarios on its own.
              * This is called by each selection of adult and children dropdown.
              * It only works for mobile screen.
              **/
-            _calResultOfRoom: function () {
+          _calResultOfRoom: function () {
                 var adultCount = 0;
                 var dataAdultR = [];
                 var dataChild = [];
                 var childCount = 0;
                 var card = this.parentElement.parentElement.parentElement.parentElement;
                 var roomCount = card.roomCount;
-                inputAdultCount = document.getElementsByClassName("inputAdultCount");
-                inputChildCount = document.getElementsByClassName("inputChildCount");
+                inputAdultCount = this.domHost.querySelectorAll(".inputAdultCount");
+                inputChildCount = this.domHost.querySelectorAll(".inputChildCount");
                 if (inputAdultCount != undefined && inputChildCount != undefined) {
                     for (var i = 0; i < roomCount; i++) {
                         // loop through each adult input on the page              
@@ -280,17 +280,24 @@ The form handles below mentioned scenarios on its own.
                     var need = this.parentElement.parentElement.parentElement.parentElement;
                     var toolbar = need.parentNode.parentNode.parentNode.querySelector("#toolbar")
                     var span = domCreate("span");
+                    var div = domCreate("div");
                     span.setAttribute("id", "spanId");
                     span.style.color = "Silver";
                     span.innerHtml = null;
                     span.innerHTML = spanData;
+                    div.style.textAlign = "center";
+                    div.style.position = "relative";
+                    div.style.top = "-18px";
+                    div.style.fontSize = "15px";
                     var checkSpan = document.querySelector("#spanId");
+                    div.appendChild(span);
                     if (checkSpan == null) {
-                        toolbar.appendChild(span);
+                        toolbar.appendChild(div);
                     }
                     else {
                         checkSpan.innerHTML = spanData;
                     }
+                    
                 }
             },
         });
