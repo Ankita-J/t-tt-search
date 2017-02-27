@@ -346,7 +346,7 @@ The form handles below mentioned scenarios on its own.
           This is hidden while user is working desktop mode or tablet mode.
           It will come in picture after user clicking on date picker at mobile screen.       -->
         
-          <app-toolbar hidden$="{{showDatePicker}}" id="toolbar1" class="row-lg-height row-md-height row-sm-height row-xs-height" style="height:60px">
+          <app-toolbar hidden$="{{showDatePicker}}" id="toolbarDatePicker" class="row-lg-height row-md-height row-sm-height row-xs-height" style="height:60px">
            <div id="selectDate">
              <iron-icon icon="icons:arrow-back" style="color:white;float:left;" on-tap="_showMainToolbar"></iron-icon>
             <span>Selected Dates</span>
@@ -515,7 +515,7 @@ The form handles below mentioned scenarios on its own.
       _openDatePicker: function () {
         var mq = window.matchMedia("(max-width: 767px)");
         if (mq.matches) {
-          Polymer.dom(this.$.toolbar1).node.style.display = "block";
+          Polymer.dom(this.$.toolbarDatePicker).node.style.display = "block";
           Polymer.dom(this.$.deskinput).node.style.display = "none";
           Polymer.dom(this.$.deskinput1).node.style.display = "none";
           Polymer.dom(this.$.button).node.style.display = "none";
@@ -535,7 +535,7 @@ The form handles below mentioned scenarios on its own.
         }
         var pdialog = Polymer.dom(this.$.dialog).node;
         pdialog.style.visibility = '' ? 'hidden' : '';
-        var tBar1 = Polymer.dom(this.$.toolbar1).node;
+        var tBar1 = Polymer.dom(this.$.toolbarDatePicker).node;
         tBar1.style.visibility = '' ? 'hidden' : '';
       },
 
@@ -561,18 +561,35 @@ The form handles below mentioned scenarios on its own.
       },
       /**
     * This function is used for done button which is used on the header of child form card on mobile screen.
-    * This calculate the total output.
+    * This is calculate the total output.
     **/
+        
       _doneRoomCard: function () {
         var card = this.querySelector("#choiceCard");
+        var troomCount = card.roomCount;
+        inputChildCount = document.getElementsByClassName("inputChildCount");
+        var childAge;
+        childAge = new Array();
+        for (var i = 0; i < troomCount; i++) {
+          for (var j = 0; j < inputChildCount[i].value; j++) {
+            childAge[j] = document.getElementById("child" + (i + 1) + "_" + (j + 1)).value;
+            if (childAge[inputChildCount[i].value] != undefined) {
+              this.show = true;
+              this.showToolbar = true;
+            }
+          }
+        }
         card.doneRoom();
-        this.show = true;
-        this.showToolbar = true;
       },
+      
+        /**
+    * This function is used for done button which is used on the header ofdate picker on mobile screen.
+    * This is used for date picker.
+    **/ 
       _doneDatePicker: function () {
         this.show = true;
         this.showToolbar = true;
-        Polymer.dom(this.$.toolbar1).node.style.display = "none";
+        Polymer.dom(this.$.toolbarDatePicker).node.style.display = "none";
         Polymer.dom(this.$.deskinout).node.style.display = "block";
         Polymer.dom(this.$.deskinput1).node.style.display = "block";
         Polymer.dom(this.$.button).node.style.display = "block";
@@ -589,7 +606,7 @@ The form handles below mentioned scenarios on its own.
       _showMainToolbar: function () {
         this.show = true;
         this.showToolbar = true;
-        Polymer.dom(this.$.toolbar1).node.style.display = "none";
+        Polymer.dom(this.$.toolbarDatePicker).node.style.display = "none";
         Polymer.dom(this.$.deskinout).node.style.display = "block";
         Polymer.dom(this.$.deskinput1).node.style.display = "block";
         Polymer.dom(this.$.button).node.style.display = "block";
