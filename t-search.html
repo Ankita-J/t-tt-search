@@ -637,18 +637,18 @@ The form handles below mentioned scenarios on its own.
           }
         }
         if (data[0] == "" && data[1] == null && data[2] == null && data[3] == null) {
-          document.getElementById("main1").invalid = true;
+         this.querySelector("#autoInput").invalid = true;
           this.$.start.invalid = true;
           this.$.end.invalid = true;
           this.$.deskinput1.invalid = true;
         }
         else if (data[0] == "" && data[1] == null && data[2] == null) {
-          document.getElementById("main1").invalid = true;
+         this.querySelector("#autoInput").invalid = true;
           this.$.start.invalid = true;
           this.$.end.invalid = true;
         }
         else if (data[0] == "" && data[2] == null && data[3] == null) {
-          document.getElementById("main1").invalid = true;
+          this.querySelector("#autoInput").invalid = true;
           this.$.end.invalid = true;
           this.$.deskinput1.invalid = true;
         }
@@ -658,20 +658,20 @@ The form handles below mentioned scenarios on its own.
           this.$.deskinput1.invalid = true;
         }
         else if (data[0] == "" && data[1] == null && data[3] == null) {
-          document.getElementById("main1").invalid = true;
+          this.querySelector("#autoInput").invalid = true;
           this.$.start.invalid = true;
           this.$.deskinput1.invalid = true;
         }
         else if (data[0] == "" && data[1] == null) {
-          document.getElementById("main1").invalid = true;
+          this.querySelector("#autoInput").invalid = true;
           this.$.start.invalid = true;
         }
         else if (data[0] == "" && data[2] == null) {
-          document.getElementById("main1").invalid = true;
+         this.querySelector("#autoInput").invalid = true;
           this.$.end.invalid = true;
         }
         else if (data[0] == "" && data[3] == null) {
-          document.getElementById("main1").invalid = true;
+          this.querySelector("#autoInput").invalid = true;
           this.$.deskinput1.invalid = true;
         }
         else if (data[1] == null && data[2] == null) {
@@ -687,7 +687,7 @@ The form handles below mentioned scenarios on its own.
           this.$.deskinput1.invalid = true;
         }
         else if (data[0] == "") {//show error        
-          document.getElementById("main1").invalid = true;
+         this.querySelector("#autoInput").invalid = true;
         }
         else if (data[1] == null) {
           this.$.start.invalid = true;
