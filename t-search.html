@@ -562,21 +562,11 @@ The form handles below mentioned scenarios on its own.
     **/
         
       _doneRoomCard: function () {
-        var card = this.querySelector("#choiceCard");
-        var troomCount = card.roomCount;
-        inputChildCount = document.getElementsByClassName("inputChildCount");
-        var childAge;
-        childAge = new Array();
-        for (var i = 0; i < troomCount; i++) {
-          for (var j = 0; j < inputChildCount[i].value; j++) {
-            childAge[j] = document.getElementById("child" + (i + 1) + "_" + (j + 1)).value;
-            if (childAge[inputChildCount[i].value] != undefined) {
-              this.show = true;
-              this.showToolbar = true;
-            }
-          }
+         var card = this.querySelector("#choiceCard");
+        var validData=card.doneRoom();
+        if(validData==true){
+          document.getElementById("toolbarRoom").style.display="none";
         }
-        card.doneRoom();
       },
       
         /**
