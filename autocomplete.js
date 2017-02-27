@@ -10,8 +10,6 @@ var AutoComplete = (function () {
                     method: "GET",
                     noResult: component.emptyMessage,
                     paramName: "query",
-
-
                     select: function (input, item) {
                         attr(input, { "data-autocomplete-old-value": input.value = attr(item, "data-autocomplete-value", item.innerHTML) });
                         component.selectedValue = attr(item, "data-autocomplete-value", item.innerHTML);
@@ -28,57 +26,35 @@ var AutoComplete = (function () {
                                 self.select(input, event.target);
                             };
                         });
-
                     },
 
                     post: function (result, res, custParams) {
                         try {
-
                             component.$.spinner.hidden = true;
                             var response = JSON.parse(res);
-
-
                             if (response.status.isSuccessful) {
                                 response = response.items;
                                 var groupedByType = {};
-
                                 var typeArr2 = [];
-
                                 for (var item in response) {
                                     var cityn = response[item].type;
-
                                     if (!typeArr2.includes(cityn)) {
                                         typeArr2.push(cityn);
                                     }
-
-
                                     if (!groupedByType[cityn]) {
-
                                         groupedByType[cityn] = [];
-
                                     }
                                     groupedByType[cityn].push(response[item]);
-
                                 }
-
                                 var typeUL = domCreate("ul")
                                 var ul = domCreate("ul")
-
-
                                 for (var t = 0; t < typeArr2.length; t++) {
-
                                     component.response = groupedByType[typeArr2[t]];
-
-
-
                                     var createLi = function () { return domCreate("li"); },
-
                                         autoReverse = function (param, limit) {
                                             return (limit < 0) ? param.reverse() : param;
                                         },
-
                                         addLi = function (ul, li, response, index) {
-
                                             li.innerHTML = response;
                                             attr(li, { "data-autocomplete-value": response });
                                             attr(li, { "data-index": index });
@@ -90,20 +66,15 @@ var AutoComplete = (function () {
                                             return createLi();
                                         },
                                         addType = function (ul, response) {
-
                                             var tdiv = domCreate("div");
                                             var p = domCreate("span");
                                             tdiv.id = "line";
                                             tdiv.style.height = "10px";
-
                                             p.style.color = "Silver";
                                             p.style.borderbottomstyle = "solid";
-
-
                                             p.innerHTML = response;
                                             tdiv.appendChild(p);
                                             ul.appendChild(tdiv);
-
                                         },
                                         empty,
                                         i = 0,
@@ -113,44 +84,26 @@ var AutoComplete = (function () {
                                         propertie,
                                         properties,
                                         value;
-
                                     if (length) {
-
                                         addType(ul, typeArr2[t])
-
-
                                         response = autoReverse(groupedByType[typeArr2[t]], limit);
                                         var item = null;
-
                                         for (; i < length && (i < Math.abs(limit) || !limit); i++) {
                                             if (component.tokenParam != '')
                                                 item = response[i][component.tokenParam];
-
                                             li = addLi(ul, li, item, i);
-
-
-
                                         }
-
                                     }
-
-
-
                                     else {
                                         //If the response is an object or an array and that the response is empty, so this script is here, for the message no response.
                                         empty = true;
                                         attrClass(li, "locked");
                                         li = addLi(ul, li, custParams.noResult);
                                     }
-
-
-
-
                                 }//for
                                 if (result.hasChildNodes()) {
                                     result.removeChild(result.lastChild);
                                 }
-
                                 result.appendChild(ul);
                                 attrClass(result, "autocomplete open");
                                 return empty;
@@ -172,18 +125,15 @@ var AutoComplete = (function () {
 
             self._custArgs = [];
             self._args = merge(defaultParams, params || {});
-
             selectors = self._args.selector;
             if (!Array.isArray(selectors)) {
                 selectors = [selectors];
             }
-
             selectors.forEach(function (selector) {
                 Array.prototype.forEach.call(component.querySelectorAll(selector), function (input) {
                     if (input.nodeName.match(/^INPUT$/i) && input.type.match(/^TEXT|SEARCH$/i)) {
                         var oldValueLabel = "data-autocomplete-old-value",
                             result = component.$.dropBox,
-
                             request,
                             positionLambda = function () {
                                 attr(result, {
@@ -195,7 +145,6 @@ var AutoComplete = (function () {
                                 input.removeEventListener("position", positionLambda);
                                 input.removeEventListener("destroy", destroyLambda);
                                 result.parentNode.removeChild(result);
-
                                 self.CustParams(input, true);
                             },
                             focusLamdba = function () {
@@ -211,17 +160,12 @@ var AutoComplete = (function () {
                             };
 
                         attr(input, { "autocomplete": "off" });
-
                         positionLambda(input, result);
                         input.addEventListener("position", positionLambda);
                         input.addEventListener("destroy", destroyLambda);
-
                         Polymer.dom(component.querySelector('#append')).appendChild(result);
-
                         input.onfocus = focusLamdba;
-
                         input.onblur = closeBox(null, result);
-
                         // input.onreadystatechange = function(e){
                         //                 if(e.keyCode==8 && this.value == "")
                         //                 {
@@ -231,7 +175,6 @@ var AutoComplete = (function () {
                         // elem.classList.add('classname')
                         //  elem.classList.remove('classname')
                         //  define two classes .hide {display : none;}.unhide{display:block;}
-
                     }
                     // else{
                     // component.$.clearContainer.hidden=true;  
@@ -255,14 +198,11 @@ var AutoComplete = (function () {
                         //------------------------------------------
 
                         if (this.value == "") {
-
-                            document.getElementById("main1").setAttribute("style", "width:100%");
-
+                            document.getElementById("autoInput").setAttribute("style", "width:100%");
                             document.getElementById("clearContainer").setAttribute('class', 'hide')
-
                         }
                         else {
-                            document.getElementById("main1").setAttribute("style", "width:100%");
+                            document.getElementById("autoInput").setAttribute("style", "width:100%");
                             document.getElementById("clearContainer").setAttribute('class', 'unhide')
                         }
 
