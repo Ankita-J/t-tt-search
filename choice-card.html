@@ -321,8 +321,8 @@ The form handles below mentioned scenarios on its own.
                 **/
 
                 doneRoom: function () {
-                    inputAdultCount = document.getElementsByClassName("inputAdultCount");
-                    inputChildCount = document.getElementsByClassName("inputChildCount");
+                    inputAdultCount = this.domHost.querySelectorAll(".inputAdultCount");
+                    inputChildCount = this.domHost.querySelectorAll(".inputChildCount");
                     var dataAdult = [];
                     var dataChild = [];
                     var dataRoom = [];
