@@ -6,9 +6,8 @@
 <link rel="import" href="bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="t-input-date-picker/t-input-date-picker.html">
 <link rel="stylesheet" href="bower_components\bootstrap\dist\css\bootstrap.min.css">
-<script src="bower_components\jquery\dist\jquery.min.js"></script>
-<script src="bower_components\bootstrap\dist\js\bootstrap.min.js"></script>
-
+<!--<script src="bower_components\bootstrap\dist\js\bootstrap.min.js"></script>
+<script src="bower_components\jquery\dist\jquery.js"></script>-->
 <link rel="import" href="choice-card.html">
 
 
@@ -131,7 +130,7 @@ The form handles below mentioned scenarios on its own.
         }
         paper-card {
           position: absolute !important;
-          top: 50px !important;
+          top: 45px !important;
           width: 100%;
           height: 750px;
           overflow-y: auto;
@@ -170,7 +169,7 @@ The form handles below mentioned scenarios on its own.
         }
         paper-card {
           position: absolute !important;
-          top: 50px !important;
+          top: 45px !important;
           width: 100%;
           height: 750px;
           overflow-y: auto;
@@ -328,6 +327,21 @@ The form handles below mentioned scenarios on its own.
         --light-primary-color: #4cb050;
         --primary-background-color: white;
       }
+      #selectDate{
+        text-align:center;
+        top:0px;
+        position:absolute;
+        width:100%;
+        height: 50px;
+        color:lightgray;
+        font-size: 15px;
+      }
+      #selectDate span{
+        position:absolute;
+        margin-left:-60px;
+         font-size: 15px;
+        top: 12px;
+      }
     </style>
     <app-header-layout>
       <app-header><span></span><br>
@@ -341,9 +355,12 @@ The form handles below mentioned scenarios on its own.
             <paper-button toggles id="buttons" on-tap='_doneRoomCard'>Done</paper-button>
           </app-toolbar>
 
-          <!--<app-toolbar hidden$="{{showDatePicker}}" class="row-lg-height row-md-height row-sm-height row-xs-height" style="height:50px">
-      </app-toolbar>    -->
-
+          <app-toolbar hidden$="{{showDatePicker}}" id="toolbar1" class="row-lg-height row-md-height row-sm-height row-xs-height" style="height:60px">
+           <div id="selectDate"> <iron-icon icon="icons:arrow-back" style="color:white;float:left;" on-tap="_showMainToolbar"></iron-icon>
+            <span>Selected Dates</span>
+            <paper-button toggles id="buttons" on-tap='_doneDatePicker'>Done</paper-button>
+            </div>
+          </app-toolbar>
           <app-toolbar class="row-lg-height row-md-height row-sm-height row-xs-height">
 
             <form is="iron-form" id="form" method="post" action="/form/handler">
@@ -357,15 +374,15 @@ The form handles below mentioned scenarios on its own.
                 </template>
               </div>
 
-              <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
+              <div id="start1" class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
                 <t-input-date-picker required auto-validate error-message="Enter check in" class="suggestions" date-format="MM-DD-YYYY" id="start"
                   label="Check In" min-date="[[today]]" max-date="[[checkmax]]" on-keydown="keypress" on-tap="_openDatePicker">
                   </t-input-date-picker>
               </div>
 
-              <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
+              <div id="end1" class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
                 <t-input-date-picker required auto-validate error-message="Enter check out" class="suggestions" id="end" label="Check Out"
-                  date-format="MM-DD-YYYY" on-keydown="keypress" max-date="[[checkmax]]">
+                  date-format="MM-DD-YYYY" on-keydown="keypress" max-date="[[checkmax]]" on-tap="_openDatePicker">
                   </t-input-date-picker>
               </div>
 
@@ -495,9 +512,30 @@ The form handles below mentioned scenarios on its own.
     **/
       _openDatePicker: function () {
         var mq = window.matchMedia("(max-width: 767px)");
-        if (mq.matches && this.showToolbar == true) {
+        if (mq.matches) {
+          document.getElementById("toolbar1").style.display = "block";
+          document.getElementById("deskinput").style.display = "none";
+          document.getElementById("deskinput1").style.display = "none";
+          document.getElementById("button").style.display = "none";
+          document.getElementById("start1").style.backgroundColor="white";
+          document.getElementById("end1").style.backgroundColor="white";
+          var startInput= document.getElementById("start");
+           var endInput= document.getElementById("end");
+        startInput.children[0].children[0].children[0].children[2].children[0].children[1].style.color="black";
+        endInput.children[0].children[0].children[0].children[2].children[0].children[1].style.color="black";
+        }
+        if (this.show = true) {
+          this.show = !this.show
+        }
+        var mq = window.matchMedia("(max-width: 767px)");
+        if (mq.matches && this.showDatePicker == true) {
           this.showDatePicker = !this.showDatePicker;
         }
+        var pdialog = document.getElementById("dialog");
+        pdialog.style.visibility = '' ? 'hidden' : '';
+        var tBar1 = document.getElementById("toolbar1");
+        tBar1.style.visibility = '' ? 'hidden' : '';
+
       },
 
       /*
@@ -528,8 +566,22 @@ The form handles below mentioned scenarios on its own.
       _doneRoomCard: function () {
         var card = this.querySelector("#choiceCard");
         card.doneRoom();
-            this.show = true;
+        this.show = true;
         this.showToolbar = true;
+      },
+      _doneDatePicker: function () {
+        this.show = true;
+        this.showToolbar = true;
+        document.getElementById("toolbar1").style.display = "none";
+        document.getElementById("deskinput").style.display = "block";
+        document.getElementById("deskinput1").style.display = "block";
+        document.getElementById("button").style.display = "block";
+         document.getElementById("start1").style.backgroundColor="#424d51";
+          document.getElementById("end1").style.backgroundColor="#424d51";
+           var startInput= document.getElementById("start");
+           var endInput= document.getElementById("end");
+        startInput.children[0].children[0].children[0].children[2].children[0].children[1].style.color="white";
+        endInput.children[0].children[0].children[0].children[2].children[0].children[1].style.color="white";
       },
       /**this is used for toolbar toggle.
      * This toolbar is used for only mobile screen.
@@ -537,7 +589,27 @@ The form handles below mentioned scenarios on its own.
       _showMainToolbar: function () {
         this.show = true;
         this.showToolbar = true;
+        document.getElementById("toolbar1").style.display = "none";
+        document.getElementById("deskinput").style.display = "block";
+        document.getElementById("deskinput1").style.display = "block";
+        document.getElementById("button").style.display = "block";
+         document.getElementById("start1").style.backgroundColor="#424d51";
+          document.getElementById("end1").style.backgroundColor="#424d51";
+           var startInput= document.getElementById("start");
+           var endInput= document.getElementById("end");
+        startInput.children[0].children[0].children[0].children[2].children[0].children[1].style.color="white";
+        endInput.children[0].children[0].children[0].children[2].children[0].children[1].style.color="white";
       },
+      // _openList: function () {
+      //   var listopen = document.getElementById("deskinput1");
+      //   var listItem=document.getElementsByClassName("suggestions")[3].value;
+      //   if(listItem==undefined){
+      //   listopen.children[1].children[0].children[0].children[1].children[0].children[3].children[0].style.border = "1px solid green";
+      //   }
+      //   else{
+      //     listopen.children[1].children[0].children[0].children[1].children[0].children[3].children[0].style.border = "1px solid red";
+      //   }
+      // },
       /*
       *To collect the input from form on click of search button.
       *This function also validates the each field of the form.
@@ -643,7 +715,7 @@ The form handles below mentioned scenarios on its own.
             start.minDate = new Date();
             CurrentDate = start.value;
             CurrentDate.setHours(0, 0, 0, 0);
-            CurrentDate.setDate(CurrentDate.getDate() + 1);
+            CurrentDate.setDate(CurrentDate.getDate());
             end.minDate = CurrentDate;
             end.value = CurrentDate;
             end._showDialog();
