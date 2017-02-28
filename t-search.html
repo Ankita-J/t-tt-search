@@ -359,7 +359,10 @@ The form handles below mentioned scenarios on its own.
             It will come in picture after user providing three input characters at autosuggest at mobile screen.       -->
             <app-toolbar  hidden class="row-lg-height row-md-height row-sm-height row-xs-height" id="toolbarAutoComplete"
               style="height:70px; background-color: white">
-              <iron-icon icon="icons:arrow-back" on-tap="_showMainToolbar"></iron-icon>
+              <iron-icon icon="icons:arrow-back" on-tap="_show1MainToolbar"></iron-icon>
+                 <div>
+            <iron-icon id="clearButton" icon="close"  on-tap="_clearInput" style="float:right;top:-33px;right:10px;"></iron-icon>
+       </div>
             </app-toolbar>
 
              <!--Main toolbar which contains auto suggest dropdown, date pickers and travellers drop down at all screens. -->
@@ -606,6 +609,17 @@ The form handles below mentioned scenarios on its own.
         var endInput= Polymer.dom(this.$.end).node;
         startInput.children[0].children[0].children[0].children[2].children[0].children[1].style.color="white";
         endInput.children[0].children[0].children[0].children[2].children[0].children[1].style.color="white";
+      },
+         _show1MainToolbar:function(){
+          this.show = true;
+        this.showToolbar = true;
+        document.getElementById("toolbarAutoComplete").style.display="none";
+        document.getElementById("dropBox").children[0].style.display="none";
+       },
+         _clearInput:function(){
+        document.getElementById("location").clear();
+        document.getElementById("toolbarAutoComplete").style.display="none";
+
       },
         
       /*
