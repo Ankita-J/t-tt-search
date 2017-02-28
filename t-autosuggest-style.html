@@ -53,6 +53,16 @@
             padding-bottom: 40px;   
         }
         
+        :host::content .autocomplete ul.ulClassMobile{
+                bottom : 0;
+                           right : 0;
+                           left : 0;
+                           top : 50px;
+                           position : fixed;
+                           border : none;
+                           background : white;
+            }   
+
         :host::content .autocomplete ul li.active,
        
         :host::content .autocomplete ul li:focus,
@@ -165,8 +175,7 @@
                 background-color:blue;
             }
             :host.focused .label-container {
-                position: relative;
-                
+                position: relative;                
             }
            
         }
