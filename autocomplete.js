@@ -113,6 +113,7 @@ var AutoComplete = (function () {
                                 }
                                  var mq = window.matchMedia("(max-width: 767px)");
                                          if (mq.matches) {
+                                              document.getElementById("toolbarAutoComplete").style.display="block";
                                              var tool = component.parentNode.parentNode.parentNode.parentNode.querySelector("#toolbarAutoComplete");
                                              tool.hidden = false;   
                                               result.appendChild(ul);
