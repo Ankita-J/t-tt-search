@@ -66,8 +66,7 @@ var AutoComplete = (function () {
                                             li.innerHTML = response;
                                             attr(li, { "data-autocomplete-value": response });
                                             attr(li, { "data-index": index });
-                                            console.log(index.onmousedown);
-                                            if (index === 0 ) {
+                                           if (index === 0 ) {
                                                 li.style.background = '#ededed';
                                             }
                                             ul.appendChild(li);
