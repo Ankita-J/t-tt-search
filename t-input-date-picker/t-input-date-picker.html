@@ -382,7 +382,7 @@ Example:
         startDate.children[0].children[0].children[0].children[3].style.border = "1px solid green";
         var pdialog = document.getElementById("dialog");
         pdialog.style.display = 'block';
-
+        startDate.invalid=false;
         this.$picker.date = (this.value) ? this.value : new Date();
         this.$.dialog.toggle();
       }
