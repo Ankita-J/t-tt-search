@@ -14,9 +14,17 @@ var AutoComplete = (function () {
                         attr(input, { "data-autocomplete-old-value": input.value = attr(item, "data-autocomplete-value", item.innerHTML) });
                         component.selectedValue = attr(item, "data-autocomplete-value", item.innerHTML);
                         component.selectedItem = component.response[attr(item)];
+                        
                         component.fire('autosuggest-select', component.selectedItem);
                         // component.fire('autosuggest-select',component.clearTimeout(50));
                         component.fire('tab-next');
+                         var mq = window.matchMedia("(max-width: 767px)");
+                         if (mq.matches) {
+                            var tool = component.parentNode.parentNode.parentNode.parentNode.querySelector("#toolbarAutoComplete");
+                            tool.hidden = true;
+                            var ul = component.querySelector("ul.ulClassMobile");
+                            ul.removeAttribute("class");
+                        }   
                         closeBox(component.querySelector(".autocomplete"), false);
                     },
                     open: function (input, result) {
@@ -104,7 +112,17 @@ var AutoComplete = (function () {
                                 if (result.hasChildNodes()) {
                                     result.removeChild(result.lastChild);
                                 }
-                                result.appendChild(ul);
+                                 var mq = window.matchMedia("(max-width: 767px)");
+                                         if (mq.matches) {
+                                             var tool = component.parentNode.parentNode.parentNode.parentNode.querySelector("#toolbarAutoComplete");
+                                             tool.hidden = false;   
+                                              result.appendChild(ul);
+                                              attrClass(ul, "ulClassMobile")
+                                            
+                                         }
+                                         else{
+                                          result.appendChild(ul);
+                                       }
                                 attrClass(result, "autocomplete open");
                                 return empty;
                             }//if response
@@ -169,7 +187,7 @@ var AutoComplete = (function () {
                         // input.onreadystatechange = function(e){
                         //                 if(e.keyCode==8 && this.value == "")
                         //                 {
-                        document.getElementById("clearContainer").setAttribute('class', 'hide')
+                         Polymer.dom(component.$.clearContainer).node.setAttribute('class', 'hide')
                         //  document.getElementById("clearContainer") .style.display='none'; 
 
                         // elem.classList.add('classname')
@@ -198,12 +216,12 @@ var AutoComplete = (function () {
                         //------------------------------------------
 
                         if (this.value == "") {
-                            document.getElementById("autoInput").setAttribute("style", "width:100%");
-                            document.getElementById("clearContainer").setAttribute('class', 'hide')
+                           Polymer.dom(component.$.autoInput).node.setAttribute("style", "width:100%");
+                           Polymer.dom(component.$.clearContainer).node.setAttribute('class', 'hide')
                         }
                         else {
-                            document.getElementById("autoInput").setAttribute("style", "width:100%");
-                            document.getElementById("clearContainer").setAttribute('class', 'unhide')
+                           Polymer.dom(component.$.autoInput).node.setAttribute("style", "width:100%");
+                           Polymer.dom(component.$.clearContainer).node.setAttribute('class', 'unhide')
                         }
 
 
@@ -230,7 +248,6 @@ var AutoComplete = (function () {
                         //     }
                         // }
 
-
                         else {
 
                             if (keyCode == 38 || keyCode == 40) {
@@ -254,27 +271,12 @@ var AutoComplete = (function () {
                                 }
                             } else if (keyCode < 35 || keyCode > 40) {
                                 if (inputValue && custParams.url) {
-
-
                                     if (inputValue.length >= component.minimumCharacters) {
-                                        component.$.spinner.hidden = false;
-
-
-
+                                        component.$.spinner.hidden = false;                                                                              
                                         setTimeout(function () {
-
-
                                             request = ajax(request, custParams, inputValue.trim(), input, result, component.subType, component.queryParams);
                                         }, component.delay);
                                     }
-                                    // if(inputValue.length >= component.minimumCharacters)
-                                    // {
-                                    //     component.$.result.hidden = true;
-
-                                    //request = ajax(request, custParams, inputValue.trim(), input, result, component.subType, component.queryParams);
-                                    // }
-
-
                                     else {
                                         if (result.hasChildNodes()) {
                                             result.removeChild(result.lastChild);
@@ -299,12 +301,10 @@ var AutoComplete = (function () {
                 prefix = "data-autocomplete",
                 params = {
                     limit: prefix + "-limit",
-
                     method: prefix + "-method",
                     noResult: prefix + "-no-result",
                     paramName: prefix + "-param-name",
                     delay: prefix + "-delay",
-
                     url: prefix
                 },
                 paramsAttribute = Object.getOwnPropertyNames(params),
@@ -340,7 +340,6 @@ var AutoComplete = (function () {
 
                     self._custArgs.push(merge(self._args, params));
                 }
-
                 return self._custArgs[attr(input, dataAutocompleteIdLabel)];
             }
         }
@@ -350,23 +349,18 @@ var AutoComplete = (function () {
         if (request) {
             request.abort();
         }
-
         var method = custParams.method,
             url = custParams.url;
-
         url = url + value;
         if (subType != '')
             url = url + "/" + subType;
-
         if (queryParams != "") {
             url += "?" + queryParams;
         }
-
         request = new XMLHttpRequest();
         request.open(method, url, true);
         request.setRequestHeader("Content-type", "application/json");
         request.setRequestHeader("Accept", "application/json");
-
         request.onreadystatechange = function () {
             if (request.readyState == 4 && request.status == 200) {
                 if (!custParams.post(result, request.response, custParams)) {
@@ -374,18 +368,15 @@ var AutoComplete = (function () {
                 }
             }
         };
-
         request.send(queryParams);
-
         return request;
     }
 
-
     function closeBox(result, closeNow) {
-
         if (closeNow) {
             attrClass(result, "autocomplete");
-        } else {
+        }
+        else {
             setTimeout(function () { closeBox(result, true); }, 150);
         }
     }
@@ -394,18 +385,14 @@ var AutoComplete = (function () {
     function merge(obj1, obj2) {
         var concat = {},
             tmp;
-
         for (tmp in obj1) {
             concat[tmp] = obj1[tmp];
         }
-
         for (tmp in obj2) {
             concat[tmp] = obj2[tmp];
         }
-
         return concat;
     }
-
     return AutoComplete;
 }());
 
